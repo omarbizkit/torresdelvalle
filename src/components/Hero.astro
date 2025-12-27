@@ -1,0 +1,113 @@
+---
+export interface Props {
+  headline: string;
+  subheadline?: string;
+  cta1?: {
+    text: string;
+    href: string;
+    variant?: 'primary' | 'secondary' | 'ghost';
+  };
+  cta2?: {
+    text: string;
+    href: string;
+    variant?: 'primary' | 'secondary' | 'ghost';
+  };
+  image?: string;
+  video?: string;
+  showVideo?: boolean;
+}
+
+const { 
+  headline, 
+  subheadline, 
+  cta1, 
+  cta2, 
+  image = '/images/hero-vineyard.jpg',
+  video,
+  showVideo = false 
+} = Astro.props;
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background Image/Video -->
+  <div class="absolute inset-0 z-0">
+    {showVideo && video ? (
+      <video 
+        autoplay 
+        muted 
+        loop 
+        playsinline
+        class="w-full h-full object-cover"
+        poster={image}
+      >
+        <source src={video} type="video/mp4" />
+        <img src={image} alt="Vineyard landscape" class="w-full h-full object-cover" />
+      </video>
+    ) : (
+      <img 
+        src={image} 
+        alt="Vineyard landscape at golden hour" 
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    )}
+    
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-charcoal/30 via-charcoal/10 to-charcoal/30"></div>
+  </div>
+  
+  <!-- Content -->
+  <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-light text-crema mb-6 leading-tight">
+      <span class="block opacity-0 animate-fadeIn" style="animation-delay: 0.2s;">{headline}</span>
+    </h1>
+    
+    {subheadline && (
+      <p class="text-xl md:text-2xl text-crema/90 mb-8 max-w-2xl mx-auto opacity-0 animate-fadeIn" style="animation-delay: 0.4s;">
+        {subheadline}
+      </p>
+    )}
+    
+    <!-- CTAs -->
+    {(cta1 || cta2) && (
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-fadeIn" style="animation-delay: 0.6s;">
+        {cta1 && (
+          <a 
+            href={cta1.href}
+            class={`px-8 py-3 font-medium rounded transition-all duration-300 ${
+              cta1.variant === 'secondary' 
+                ? 'bg-muted-gold text-crema hover:bg-muted-gold/90' 
+                : cta1.variant === 'ghost'
+                ? 'border-2 border-crema text-crema hover:bg-crema hover:text-charcoal'
+                : 'bg-clay text-crema hover:bg-clay/90'
+            }`}
+          >
+            {cta1.text}
+          </a>
+        )}
+        
+        {cta2 && (
+          <a 
+            href={cta2.href}
+            class={`px-8 py-3 font-medium rounded transition-all duration-300 ${
+              cta2.variant === 'secondary' 
+                ? 'bg-muted-gold text-crema hover:bg-muted-gold/90' 
+                : cta2.variant === 'ghost'
+                ? 'border-2 border-crema text-crema hover:bg-crema hover:text-charcoal'
+                : 'bg-clay text-crema hover:bg-clay/90'
+            }`}
+          >
+            {cta2.text}
+          </a>
+        )}
+      </div>
+    )}
+  </div>
+  
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-crema/70 animate-bounce">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
+  </div>
+</section>

@@ -1,0 +1,87 @@
+---
+export interface Props {
+  currentLocale?: 'es' | 'en';
+}
+
+const { currentLocale = 'es' } = Astro.props;
+
+// Get current path without locale prefix
+const currentPath = Astro.url.pathname;
+const isEnglishPath = currentPath.startsWith('/en/');
+const isRootEnglish = currentPath === '/en';
+
+function getAlternativeUrl() {
+  if (isEnglishPath) {
+    // Convert /en/something to /something
+    return currentPath.replace('/en', '') || '/';
+  } else if (isRootEnglish) {
+    // Convert /en to /
+    return '/';
+  } else {
+    // Convert /something to /en/something
+    return currentPath === '/' ? '/en' : `/en${currentPath}`;
+  }
+}
+
+const alternativeUrl = getAlternativeUrl();
+---
+
+<div class="flex items-center space-x-1" role="navigation" aria-label="Language selector">
+  <button
+    class={`px-3 py-1 text-sm font-medium rounded transition-colors ${
+      currentLocale === 'es' 
+        ? 'bg-clay text-crema' 
+        : 'text-charcoal hover:text-clay'
+    }`}
+    onclick={`setLanguage('${currentLocale === 'es' ? '/' : alternativeUrl}')`}
+    aria-current={currentLocale === 'es' ? 'true' : 'false'}
+  >
+    ES
+  </button>
+  
+  <span class="text-charcoal/30">|</span>
+  
+  <button
+    class={`px-3 py-1 text-sm font-medium rounded transition-colors ${
+      currentLocale === 'en' 
+        ? 'bg-clay text-crema' 
+        : 'text-charcoal hover:text-clay'
+    }`}
+    onclick={`setLanguage('${currentLocale === 'en' ? '/' : alternativeUrl}')`}
+    aria-current={currentLocale === 'en' ? 'true' : 'false'}
+  >
+    EN
+  </button>
+</div>
+
+<script>
+  function setLanguage(url: string) {
+    // Set language preference in cookie
+    const isEnglish = url.includes('/en');
+    document.cookie = `preferred-language=${isEnglish ? 'en' : 'es'}; path=/; max-age=31536000`;
+    
+    // Navigate to the new URL
+    window.location.href = url;
+  }
+  
+  // Check for stored language preference on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const cookies = document.cookie.split(';');
+    const langCookie = cookies.find(cookie => cookie.trim().startsWith('preferred-language='));
+    
+    if (langCookie) {
+      const preferredLang = langCookie.split('=')[1];
+      const currentPath = window.location.pathname;
+      const isCurrentlyEnglish = currentPath.startsWith('/en');
+      
+      // Redirect if language doesn't match preference
+      if (preferredLang === 'en' && !isCurrentlyEnglish) {
+        const newPath = currentPath === '/' ? '/en' : `/en${currentPath}`;
+        window.location.href = newPath;
+      } else if (preferredLang === 'es' && isCurrentlyEnglish) {
+        const newPath = currentPath.replace('/en', '') || '/';
+        window.location.href = newPath;
+      }
+    }
+  });
+</script>

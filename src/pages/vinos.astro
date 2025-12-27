@@ -1,0 +1,260 @@
+---
+import Layout from '../layouts/Layout.astro';
+import WineCard from '../components/WineCard.astro';
+
+const wines = [
+  {
+    name: 'Grenache 2023',
+    vintage: 2023,
+    type: 'tinto',
+    notes: 'Frutos rojos maduros, especias mediterráneas, mineralidad elegante',
+    price: '$850 MXN',
+    image: '/images/wine-bottles/grenache-2023.jpg',
+    slug: 'grenache-2023',
+    description: 'Nuestro Grenache expresa la esencia del Valle de Guadalupe con su perfil de frutos rojos y especias.'
+  },
+  {
+    name: 'Nebbiolo 2022',
+    vintage: 2022,
+    type: 'tinto',
+    notes: 'Cereza negra, rosa silvestre, taninos firmes y elegantes',
+    price: '$1,200 MXN',
+    image: '/images/wine-bottles/nebbiolo-2022.jpg',
+    slug: 'nebbiolo-2022',
+    description: 'Un vino de gran estructura que demuestra el potencial del Nebbiolo en nuestro terruño.'
+  },
+  {
+    name: 'Syrah 2022',
+    vintage: 2022,
+    type: 'tinto',
+    notes: 'Mora, pimienta negra, notas ahumadas',
+    price: '$950 MXN',
+    image: '/images/wine-bottles/grenache-2023.jpg',
+    slug: 'syrah-2022',
+    description: 'Syrah con carácter mediterráneo y la tipicidad de nuestro Valle.'
+  },
+  {
+    name: 'Chenin Blanc 2023',
+    vintage: 2023,
+    type: 'blanco',
+    notes: 'Cítricos, miel de azahar, acidez vibrante y fresca',
+    price: '$650 MXN',
+    image: '/images/wine-bottles/chenin-blanc-2023.jpg',
+    slug: 'chenin-blanc-2023',
+    description: 'Chenin Blanc que captura la frescura y mineralidad de nuestro terruño costero.'
+  },
+  {
+    name: 'Sauvignon Blanc 2023',
+    vintage: 2023,
+    type: 'blanco',
+    notes: 'Hierbas frescas, pomelo, mineralidad salina',
+    price: '$580 MXN',
+    image: '/images/wine-bottles/chenin-blanc-2023.jpg',
+    slug: 'sauvignon-blanc-2023',
+    description: 'Fresco y expresivo, perfecto para los mariscos de nuestra región.'
+  },
+  {
+    name: 'Chardonnay 2022',
+    vintage: 2022,
+    type: 'blanco',
+    notes: 'Manzana verde, vainilla, cuerpo medio',
+    price: '$720 MXN',
+    image: '/images/wine-bottles/chenin-blanc-2023.jpg',
+    slug: 'chardonnay-2022',
+    description: 'Chardonnay con fermentación en barrica, elegante y complejo.'
+  },
+  {
+    name: 'Rosé 2023',
+    vintage: 2023,
+    type: 'rosado',
+    notes: 'Fresas silvestres, rosas, final seco y mineral',
+    price: '$520 MXN',
+    image: '/images/wine-bottles/rose-2023.jpg',
+    slug: 'rose-2023',
+    description: 'Rosé delicado y elegante, ideal para los días soleados del Valle.'
+  },
+  {
+    name: 'Grenache Rosé 2023',
+    vintage: 2023,
+    type: 'rosado',
+    notes: 'Pomelo rosado, frambuesa, acidez refrescante',
+    price: '$480 MXN',
+    image: '/images/wine-bottles/rose-2023.jpg',
+    slug: 'grenache-rose-2023',
+    description: 'Expresión fresca y vibrante de Grenache en formato rosado.'
+  },
+  {
+    name: 'Tempranillo 2021',
+    vintage: 2021,
+    type: 'tinto',
+    notes: 'Cereza, vainilla, especias dulces',
+    price: '$780 MXN',
+    image: '/images/wine-bottles/nebbiolo-2022.jpg',
+    slug: 'tempranillo-2021',
+    description: 'Tempranillo con crianza que demuestra la elegancia de nuestra región.'
+  },
+  {
+    name: 'Viognier 2023',
+    vintage: 2023,
+    type: 'blanco',
+    notes: 'Durazno, flores blancas, cuerpo medio',
+    price: '$620 MXN',
+    image: '/images/wine-bottles/chenin-blanc-2023.jpg',
+    slug: 'viognier-2023',
+    description: 'Viognier aromático con la tipicidad de nuestro Valle costero.'
+  },
+  {
+    name: 'Petite Sirah 2021',
+    vintage: 2021,
+    type: 'tinto',
+    notes: 'Mora, cacao, taninos robustos',
+    price: '$1,100 MXN',
+    image: '/images/wine-bottles/nebbiolo-2022.jpg',
+    slug: 'petite-sirah-2021',
+    description: 'Petite Sirah de gran estructura, perfecto para guardar.'
+  },
+  {
+    name: 'Blend de Corte 2022',
+    vintage: 2022,
+    type: 'tinto',
+    notes: 'Complejo, frutas negras, especias, elegante',
+    price: '$1,350 MXN',
+    image: '/images/wine-bottles/grenache-2023.jpg',
+    slug: 'blend-corte-2022',
+    description: 'Nuestro vino insignia, un blend que representa lo mejor de nuestro Valle.'
+  }
+];
+
+const filterOptions = [
+  { value: 'todos', label: 'Todos los Vinos' },
+  { value: 'tinto', label: 'Tintos' },
+  { value: 'blanco', label: 'Blancos' },
+  { value: 'rosado', label: 'Rosados' }
+];
+---
+
+<Layout 
+  title="Vinos" 
+  description="Descubre nuestra colección de vinos elaborados con pasión y respeto por el terruño de Valle de Guadalupe."
+  locale="es"
+>
+  <!-- Hero Section -->
+  <section class="py-20 bg-warm-sand/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center reveal">
+        <h1 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6">
+          Nuestra Colección de Vinos
+        </h1>
+        <p class="text-xl text-sage max-w-2xl mx-auto">
+          Cada botella cuenta la historia de nuestro terruño, elaborada con pasión y respeto por la tradición familiar.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Filter Section -->
+  <section class="sticky top-16 z-30 bg-crema/95 backdrop-blur-sm border-b border-warm-sand py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-center gap-4" x-data="{ filter: 'todos' }">
+        {filterOptions.map((option) => (
+          <button
+            @click="filter = '{option.value}'"
+            :class="filter === '{option.value}' ? 'bg-clay text-crema' : 'bg-warm-sand text-charcoal hover:bg-stone hover:text-crema'"
+            class="px-6 py-2 font-medium rounded-full transition-colors duration-300"
+            data-filter={option.value}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Wine Grid -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div 
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+        x-data="{ wines: [] }"
+        x-init="wines = [
+          { name: 'Grenache 2023', type: 'tinto', vintage: 2023, notes: 'Frutos rojos maduros, especias mediterráneas, mineralidad elegante', price: '$850 MXN', image: '/images/wine-bottles/grenache-2023.jpg', slug: 'grenache-2023' },
+          { name: 'Nebbiolo 2022', type: 'tinto', vintage: 2022, notes: 'Cereza negra, rosa silvestre, taninos firmes y elegantes', price: '$1,200 MXN', image: '/images/wine-bottles/nebbiolo-2022.jpg', slug: 'nebbiolo-2022' },
+          { name: 'Syrah 2022', type: 'tinto', vintage: 2022, notes: 'Mora, pimienta negra, notas ahumadas', price: '$950 MXN', image: '/images/wine-bottles/grenache-2023.jpg', slug: 'syrah-2022' },
+          { name: 'Chenin Blanc 2023', type: 'blanco', vintage: 2023, notes: 'Cítricos, miel de azahar, acidez vibrante y fresca', price: '$650 MXN', image: '/images/wine-bottles/chenin-blanc-2023.jpg', slug: 'chenin-blanc-2023' },
+          { name: 'Sauvignon Blanc 2023', type: 'blanco', vintage: 2023, notes: 'Hierbas frescas, pomelo, mineralidad salina', price: '$580 MXN', image: '/images/wine-bottles/chenin-blanc-2023.jpg', slug: 'sauvignon-blanc-2023' },
+          { name: 'Chardonnay 2022', type: 'blanco', vintage: 2022, notes: 'Manzana verde, vainilla, cuerpo medio', price: '$720 MXN', image: '/images/wine-bottles/chenin-blanc-2023.jpg', slug: 'chardonnay-2022' },
+          { name: 'Rosé 2023', type: 'rosado', vintage: 2023, notes: 'Fresas silvestres, rosas, final seco y mineral', price: '$520 MXN', image: '/images/wine-bottles/rose-2023.jpg', slug: 'rose-2023' },
+          { name: 'Grenache Rosé 2023', type: 'rosado', vintage: 2023, notes: 'Pomelo rosado, frambuesa, acidez refrescante', price: '$480 MXN', image: '/images/wine-bottles/rose-2023.jpg', slug: 'grenache-rose-2023' },
+          { name: 'Tempranillo 2021', type: 'tinto', vintage: 2021, notes: 'Cereza, vainilla, especias dulces', price: '$780 MXN', image: '/images/wine-bottles/nebbiolo-2022.jpg', slug: 'tempranillo-2021' },
+          { name: 'Viognier 2023', type: 'blanco', vintage: 2023, notes: 'Durazno, flores blancas, cuerpo medio', price: '$620 MXN', image: '/images/wine-bottles/chenin-blanc-2023.jpg', slug: 'viognier-2023' },
+          { name: 'Petite Sirah 2021', type: 'tinto', vintage: 2021, notes: 'Mora, cacao, taninos robustos', price: '$1,100 MXN', image: '/images/wine-bottles/nebbiolo-2022.jpg', slug: 'petite-sirah-2021' },
+          { name: 'Blend de Corte 2022', type: 'tinto', vintage: 2022, notes: 'Complejo, frutas negras, especias, elegante', price: '$1,350 MXN', image: '/images/wine-bottles/grenache-2023.jpg', slug: 'blend-corte-2022' }
+        ]"
+      >
+        <template x-for="wine in wines.filter(w => filter === 'todos' || w.type === filter)" :key="wine.slug">
+          <div class="reveal">
+            <WineCard 
+              name="${wine.name}"
+              vintage="${wine.vintage}"
+              notes="${wine.notes}"
+              price="${wine.price}"
+              image="${wine.image}"
+              slug="${wine.slug}"
+            />
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Wine Making Process -->
+  <section class="py-20 bg-stone text-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-4">
+          Nuestro Proceso
+        </h2>
+        <p class="text-xl text-crema/90 max-w-2xl mx-auto">
+          De la vid a la botella, cada paso refleja nuestro compromiso con la calidad y autenticidad
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {[
+          { title: 'Viñedo', desc: 'Agricultura regenerativa y selección manual' },
+          { title: 'Cosecha', desc: 'Uva en su punto óptimo de madurez' },
+          { title: 'Elaboración', desc: 'Fermentación con levaduras nativas' },
+          { title: 'Crianza', desc: 'Añejamiento en barrica de roble francés' }
+        ].map((step, index) => (
+          <div class="text-center reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <div class="w-16 h-16 bg-crema/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-display font-semibold text-crema">{index + 1}</span>
+            </div>
+            <h3 class="text-xl font-display font-semibold mb-3">{step.title}</h3>
+            <p class="text-crema/80">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-clay text-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-6">
+          Descubre nuestros vinos
+        </h2>
+        <p class="text-xl mb-8 text-crema/90">
+          Visita nuestra vinícola y prueba nuestra colección completa de vinos
+        </p>
+        <a href="/reservaciones" class="inline-flex items-center px-8 py-4 bg-crema text-clay font-medium rounded hover:bg-crema/90 transition-colors text-lg">
+          Reserva tu cata
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

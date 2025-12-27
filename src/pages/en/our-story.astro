@@ -1,0 +1,236 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const timeline = [
+  {
+    year: '1950',
+    title: 'Melitón Arrives in the Valley',
+    description: 'Melitón Zavala, our grandfather, arrives in Valle de Guadalupe with an agricultural vision and passion for the land. He begins cultivating the land we inherit today.',
+    image: '/images/meliton-legacy.jpg'
+  },
+  {
+    year: '2015',
+    title: 'The Torres Siblings Reclaim the Land',
+    description: 'Gabriel, Lilibeth, and Omar Torres decide to honor their grandfather\'s legacy, reclaiming the family lands and beginning their winemaking dream.',
+    image: '/images/family-portrait.jpg'
+  },
+  {
+    year: '2020',
+    title: 'First Vintage',
+    description: 'After years of preparation and study, we produce our first wine harvest, maintaining principles of sustainable agriculture and artisanal production.',
+    image: '/images/vineyard-gallery/hands-harvest.jpg'
+  },
+  {
+    year: '2024',
+    title: 'Today',
+    description: 'Torres del Valle establishes itself as a boutique winery that honors family tradition while innovating with modern winemaking techniques.',
+    image: '/images/vineyard-gallery/golden-hour-landscape.jpg'
+  }
+];
+
+const siblings = [
+  {
+    name: 'Gabriel Torres',
+    role: 'Viticulturist',
+    bio: 'Gabriel is the guardian of our vines. With deep knowledge of the Valle de Guadalupe terroir, he cultivates each vine with the same dedication as his grandfather Melitón.',
+    image: '/images/family/gabriel-torres.jpg'
+  },
+  {
+    name: 'Lilibeth Torres',
+    role: 'Winemaker',
+    bio: 'Lilibeth transforms our grapes into exceptional wines. Her enological training and intuition create wines that express the true essence of our Valley.',
+    image: '/images/family/lilibeth-torres.jpg'
+  },
+  {
+    name: 'Omar Torres',
+    role: 'Hospitality',
+    bio: 'Omar creates memorable experiences for every visitor. His warmth and knowledge make every moment at Torres del Valle special and unique.',
+    image: '/images/family/omar-torres.jpg'
+  }
+];
+
+const values = [
+  {
+    title: 'Heritage as Foundation',
+    description: 'We honor our grandfather\'s legacy with every decision we make.'
+  },
+  {
+    title: 'Terroir Transparency',
+    description: 'Our wines honestly reflect the dust, sun, and salt of our land.'
+  },
+  {
+    title: 'Warm Precision',
+    description: 'Premium yet approachable, with meticulous attention to every detail.'
+  },
+  {
+    title: 'Sustainable Progress',
+    description: 'Regenerative practices that respect our land and community.'
+  },
+  {
+    title: 'Bilingual Soul',
+    description: 'Mexican heart with an open invitation to the world.'
+  }
+];
+---
+
+<Layout 
+  title="Our Story" 
+  description="Discover the Torres family legacy and how we honor our grandfather Melitón Zavala's winemaking tradition in Valle de Guadalupe."
+  locale="en"
+>
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center bg-warm-sand/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen">
+        <div class="reveal">
+          <h1 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6 leading-tight">
+            Roots That Define Us
+          </h1>
+          <p class="text-xl text-sage mb-8 leading-relaxed">
+            The story of Torres del Valle is a story of family, respect for the land, and passion for creating wines that speak honestly of our terroir.
+          </p>
+          <a href="/en/reservations" class="inline-flex items-center px-6 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors">
+            Book Your Visit
+            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+        
+        <div class="reveal">
+          <img 
+            src="/images/family-portrait.jpg" 
+            alt="The Torres siblings: Gabriel, Lilibeth, and Omar" 
+            class="w-full h-96 object-cover rounded-lg shadow-xl"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Timeline -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+          Our Story
+        </h2>
+        <p class="text-xl text-sage">
+          A journey through time that brought us here
+        </p>
+      </div>
+      
+      <div class="space-y-16">
+        {timeline.map((item, index) => (
+          <div class="flex items-center gap-8 reveal" style={`animation-delay: ${index * 0.2}s;`}>
+            <div class="flex-shrink-0 w-24 h-24 bg-clay text-crema rounded-full flex items-center justify-center font-display text-2xl font-semibold">
+              {item.year}
+            </div>
+            
+            <div class="flex-1">
+              <h3 class="text-2xl font-display font-semibold text-charcoal mb-3">
+                {item.title}
+              </h3>
+              <p class="text-sage leading-relaxed mb-4">
+                {item.description}
+              </p>
+              <img 
+                src={item.image} 
+                alt={item.title}
+                class="w-full h-48 object-cover rounded-lg"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Family Grid -->
+  <section class="py-20 bg-warm-sand/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+          The Torres Family
+        </h2>
+        <p class="text-xl text-sage max-w-2xl mx-auto">
+          Three siblings, three passions, one dream: to create wines that honor our land and family tradition.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {siblings.map((sibling, index) => (
+          <div class="text-center reveal" style={`animation-delay: ${index * 0.2}s;`}>
+            <img 
+              src={sibling.image} 
+              alt={sibling.name}
+              class="w-48 h-48 object-cover rounded-full mx-auto mb-6 shadow-lg"
+              loading="lazy"
+            />
+            <h3 class="text-2xl font-display font-semibold text-charcoal mb-2">
+              {sibling.name}
+            </h3>
+            <p class="text-clay font-medium mb-4">{sibling.role}</p>
+            <p class="text-sage leading-relaxed">
+              {sibling.bio}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Values Grid -->
+  <section class="py-20 bg-stone text-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-4">
+          Our Values
+        </h2>
+        <p class="text-xl text-crema/90 max-w-2xl mx-auto">
+          The principles that guide every decision and every wine we create
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {values.map((value, index) => (
+          <div class="text-center reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <div class="w-16 h-16 bg-crema/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-crema" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-display font-semibold mb-3">
+              {value.title}
+            </h3>
+            <p class="text-crema/80 leading-relaxed">
+              {value.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-clay text-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-6">
+          Visit Torres del Valle
+        </h2>
+        <p class="text-xl mb-8 text-crema/90">
+          Discover the story behind every wine. Book your experience today.
+        </p>
+        <a href="/en/reservations" class="inline-flex items-center px-8 py-4 bg-crema text-clay font-medium rounded hover:bg-crema/90 transition-colors text-lg">
+          Book Your Experience
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

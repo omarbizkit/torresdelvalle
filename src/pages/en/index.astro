@@ -1,0 +1,277 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import ExperienceCard from '../../components/ExperienceCard.astro';
+import Testimonial from '../../components/Testimonial.astro';
+import WineCard from '../../components/WineCard.astro';
+import { getEntry } from 'astro:content';
+
+// Get content for current locale
+const content = await getEntry('pages', 'index.en');
+const { Content } = await content.render();
+
+// Experience data
+const experiences = [
+  {
+    title: 'Cata Clásica',
+    titleEn: 'Classic Tasting',
+    duration: '90 min',
+    price: '$25 USD',
+    groupSize: '2-8 guests',
+    includes: '5 wines, cheese pairing',
+    vibe: 'Casual and educational',
+    image: '/images/experience-hero.jpg',
+    slug: 'cata-clasica'
+  },
+  {
+    title: 'Tour Privado',
+    titleEn: 'Private Tour',
+    duration: '2.5 hrs',
+    price: '$65 USD',
+    groupSize: '4-12 guests',
+    includes: 'Vineyard visit, 8 wines, full pairing',
+    vibe: 'Intimate and personalized',
+    image: '/images/vineyard-gallery/tasting-room.jpg',
+    slug: 'tour-privado'
+  },
+  {
+    title: 'Experiencia Cosecha',
+    titleEn: 'Harvest Experience',
+    duration: '3 hrs',
+    price: '$95 USD',
+    groupSize: '6-12 guests',
+    includes: 'Hands-on harvest, countryside lunch',
+    vibe: 'Immersive and authentic',
+    image: '/images/vineyard-gallery/hands-harvest.jpg',
+    slug: 'cosecha'
+  }
+];
+
+// Featured wines
+const featuredWines = [
+  {
+    name: 'Grenache 2023',
+    vintage: 2023,
+    notes: 'Red fruits, Mediterranean spices, elegant minerality',
+    price: '$45 USD',
+    image: '/images/wine-bottles/grenache-2023.jpg',
+    slug: 'grenache-2023'
+  },
+  {
+    name: 'Nebbiolo 2022',
+    vintage: 2022,
+    notes: 'Black cherry, wild rose, firm tannins',
+    price: '$65 USD',
+    image: '/images/wine-bottles/nebbiolo-2022.jpg',
+    slug: 'nebbiolo-2022'
+  },
+  {
+    name: 'Chenin Blanc 2023',
+    vintage: 2023,
+    notes: 'Citrus, orange blossom, vibrant acidity',
+    price: '$35 USD',
+    image: '/images/wine-bottles/chenin-blanc-2023.jpg',
+    slug: 'chenin-blanc-2023'
+  }
+];
+
+// Testimonials
+const testimonials = [
+  {
+    quote: "An authentic and memorable experience. The wines reflect the love and dedication of the Torres family.",
+    author: "Maria Gonzalez",
+    location: "Tijuana, BC",
+    image: '/images/family-portrait.jpg'
+  },
+  {
+    quote: "Valle de Guadalupe has a new treasure. Torres del Valle wines are pure art.",
+    author: "Carlos Rodriguez",
+    location: "Ensenada, BC",
+    image: '/images/vineyard-gallery/golden-hour-landscape.jpg'
+  },
+  {
+    quote: "The passion for wine is felt in every sip. A must-visit for wine lovers.",
+    author: "Ana Martinez",
+    location: "San Diego, CA",
+    image: '/images/vineyard-gallery/tasting-room.jpg'
+  }
+];
+---
+
+<Layout 
+  title="Home" 
+  description="At Torres del Valle, we inherit the land our grandfather cultivated with passion and transform it into wines that speak of Valle de Guadalupe with honesty and elegance."
+  locale="en"
+>
+  <!-- Hero Section -->
+  <Hero 
+    headline="Valle Roots. Family Soul."
+    subheadline="At Torres del Valle, we inherit the land our grandfather cultivated with passion and transform it into wines that speak of Valle de Guadalupe with honesty and elegance."
+    cta1={{ text: 'Book Your Experience', href: '/en/reservations', variant: 'primary' }}
+    cta2={{ text: 'Discover Our Story', href: '/en/our-story', variant: 'ghost' }}
+    video="/video/hero-video.mp4"
+    showVideo={false}
+  />
+  
+  <!-- Story Snippet -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-6">
+            Since 1950, Growing Guadalupe's Character
+          </h2>
+          <div class="prose prose-lg text-sage">
+            <Content />
+          </div>
+          <div class="mt-8">
+            <a href="/en/our-story" class="inline-flex items-center px-6 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors">
+              Discover Our Story
+              <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="reveal">
+          <img 
+            src="/images/meliton-legacy.jpg" 
+            alt="Melitón Zavala, founder of our family's winemaking tradition" 
+            class="w-full h-96 object-cover rounded-lg shadow-lg"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Experiences Carousel -->
+  <section class="py-20 bg-warm-sand/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+          Unforgettable Experiences
+        </h2>
+        <p class="text-xl text-sage max-w-2xl mx-auto">
+          Discover Valle de Guadalupe through authentic experiences designed to connect with our land and wines.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {experiences.map((exp, index) => (
+          <div class="reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <ExperienceCard {...exp} currentLocale="en" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Featured Wines -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+          Our Wines
+        </h2>
+        <p class="text-xl text-sage max-w-2xl mx-auto">
+          Each bottle tells the story of our terroir, crafted with passion and respect for family tradition.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        {featuredWines.map((wine, index) => (
+          <div class="reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <WineCard {...wine} />
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center reveal">
+        <a href="/en/wines" class="inline-flex items-center px-6 py-3 bg-vineyard-green text-crema font-medium rounded hover:bg-vineyard-green/90 transition-colors">
+          View All Wines
+          <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials -->
+  <section class="py-20 bg-stone text-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-4">
+          What Our Visitors Say
+        </h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {testimonials.map((testimonial, index) => (
+          <div class="reveal" style={`animation-delay: ${index * 0.2}s;`}>
+            <Testimonial {...testimonial} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Instagram Feed Placeholder -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+          @torresdelvalle
+        </h2>
+        <p class="text-xl text-sage">
+          Follow our story on Instagram
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div class="aspect-square bg-warm-sand rounded-lg overflow-hidden reveal" style={`animation-delay: ${i * 0.1}s;`}>
+            <img 
+              src={`/images/vineyard-gallery/golden-hour-landscape.jpg`} 
+              alt={`Instagram post ${i}`} 
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter -->
+  <section class="py-16 bg-vineyard-green text-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="reveal">
+        <h2 class="text-3xl md:text-4xl font-display font-light mb-4">
+          Receive New Vintages
+        </h2>
+        <p class="text-xl mb-8 text-crema/90">
+          Be the first to know about our new harvests and exclusive events
+        </p>
+        
+        <!-- Mailchimp Form Placeholder -->
+        <form class="max-w-md mx-auto flex gap-4">
+          <input 
+            type="email" 
+            placeholder="Your email address"
+            class="flex-1 px-4 py-3 bg-crema/10 border border-crema/20 rounded text-crema placeholder-crema/60 focus:outline-none focus:border-crema/40"
+            required
+          />
+          <button 
+            type="submit"
+            class="px-6 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors"
+          >
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>

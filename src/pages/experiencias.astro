@@ -1,0 +1,257 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ExperienceCard from '../components/ExperienceCard.astro';
+
+const experiences = [
+  {
+    title: 'Cata Clásica',
+    titleEn: 'Classic Tasting',
+    duration: '90 min',
+    price: '$450 MXN',
+    groupSize: '2-8 personas',
+    includes: '5 vinos, maridaje de quesos regionales y pan artesanal',
+    vibe: 'Casual y educativo, perfecto para principiantes',
+    image: '/images/experience-hero.jpg',
+    slug: 'cata-clasica',
+    description: 'Nuestra experiencia más popular. Descubre la esencia de Torres del Valle a través de una selección curada de nuestros vinos emblemáticos.'
+  },
+  {
+    title: 'Tour Privado',
+    titleEn: 'Private Tour',
+    duration: '2.5 hrs',
+    price: '$1,200 MXN',
+    groupSize: '4-12 personas',
+    includes: 'Visita al viñedo, 8 vinos, maridaje completo con productos locales',
+    vibe: 'Intimo y personalizado, ideal para grupos especiales',
+    image: '/images/vineyard-gallery/tasting-room.jpg',
+    slug: 'tour-privado',
+    description: 'Sumérgete en la experiencia completa de Torres del Valle con un tour privado que incluye el viñedo, bodega y degustación premium.'
+  },
+  {
+    title: 'Experiencia Cosecha',
+    titleEn: 'Harvest Experience',
+    duration: '3 hrs',
+    price: '$1,800 MXN',
+    groupSize: '6-12 personas',
+    includes: 'Cosecha participativa, almuerzo campestre, 6 vinos',
+    vibe: 'Inmersivo y auténtico, único durante temporada de cosecha',
+    image: '/images/vineyard-gallery/hands-harvest.jpg',
+    slug: 'cosecha',
+    description: 'Participa activamente en la cosecha de uvas y descubre el proceso completo de elaboración de vinos. Solo disponible en temporada de cosecha.',
+    seasonal: true
+  },
+  {
+    title: 'Experiencia Enólogo',
+    titleEn: 'Winemaker Experience',
+    duration: '4 hrs',
+    price: '$2,500 MXN',
+    groupSize: '2-6 personas',
+    includes: 'Sesión privada con Lilibeth, blending personalizado, 10 vinos',
+    vibe: 'Exclusivo y educativo, para verdaderos amantes del vino',
+    image: '/images/family/lilibeth-torres.jpg',
+    slug: 'enologo',
+    description: 'Sesión exclusiva con nuestra enóloga Lilibeth Torres. Aprende sobre el arte del blending y crea tu propio vino personalizado.'
+  }
+];
+
+const faqItems = [
+  {
+    question: '¿Cuál es la edad mínima?',
+    questionEn: 'What is the minimum age?',
+    answer: 'La edad mínima para participar en experiencias de cata es de 18 años.',
+    answerEn: 'The minimum age to participate in wine tasting experiences is 18 years.'
+  },
+  {
+    question: '¿Incluyen transporte?',
+    questionEn: 'Is transportation included?',
+    answer: 'No incluimos transporte. Recomendamos rentar vehículo o usar taxi local.',
+    answerEn: 'Transportation is not included. We recommend renting a vehicle or using local taxi services.'
+  },
+  {
+    question: '¿Pueden adaptar el maridaje?',
+    questionEn: 'Can you adapt the food pairing?',
+    answer: 'Sí, podemos adaptar el maridaje a restricciones alimentarias con previo aviso.',
+    answerEn: 'Yes, we can adapt food pairings to dietary restrictions with advance notice.'
+  },
+  {
+    question: '¿Aceptan mascotas?',
+    questionEn: 'Do you accept pets?',
+    answer: 'Sí, aceptamos mascotas con correa en áreas exteriores.',
+    answerEn: 'Yes, we accept leashed pets in outdoor areas.'
+  }
+];
+---
+
+<Layout 
+  title="Experiencias" 
+  description="Descubre experiencias auténticas en Torres del Valle. Catas, tours privados y experiencias inmersivas en el Valle de Guadalupe."
+  locale="es"
+>
+  <!-- Hero Section -->
+  <section class="py-20 bg-warm-sand/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center reveal">
+        <h1 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6">
+          Experiencias Inolvidables
+        </h1>
+        <p class="text-xl text-sage max-w-3xl mx-auto leading-relaxed">
+          Descubre el Valle de Guadalupe a través de experiencias auténticas diseñadas para conectar con nuestra tierra, vinos y la pasión de la familia Torres.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Experiences Grid -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {experiences.map((exp, index) => (
+          <div class="reveal" style={`animation-delay: ${index * 0.2}s;`}>
+            <ExperienceCard {...exp} currentLocale="es" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Seasonal Banner -->
+  <section class="py-16 bg-vineyard-green text-crema" x-data="{ showBanner: false }" x-init="showBanner = new Date().getMonth() >= 7 && new Date().getMonth() <= 10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" x-show="showBanner" x-transition>
+      <h2 class="text-3xl font-display font-light mb-4">
+        🍇 Temporada de Cosecha
+      </h2>
+      <p class="text-xl mb-6 text-crema/90">
+        Agosto a octubre es la mejor época para vivir la Experiencia Cosecha. ¡Reserva tu lugar!
+      </p>
+      <a href="/reservaciones?experience=cosecha" class="inline-flex items-center px-6 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors">
+        Reserva tu experiencia de cosecha
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+  
+  <!-- FAQ Section -->
+  <section class="py-20 bg-stone text-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-4">
+          Preguntas Frecuentes
+        </h2>
+        <p class="text-xl text-crema/90">
+          Todo lo que necesitas saber sobre nuestras experiencias
+        </p>
+      </div>
+      
+      <div class="space-y-6" x-data="{ active: null }">
+        {faqItems.map((item, index) => (
+          <div class="reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <button
+              @click="active = active === {index} ? null : {index}"
+              class="w-full text-left p-6 bg-crema/10 rounded-lg hover:bg-crema/20 transition-colors focus:outline-none focus:ring-2 focus:ring-crema/50"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-display font-semibold">
+                  {item.question}
+                </h3>
+                <svg 
+                  class="w-5 h-5 transform transition-transform"
+                  :class="active === {index} ? 'rotate-180' : ''"
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </button>
+            
+            <div 
+              x-show="active === {index}"
+              x-transition
+              class="mt-4 p-6 bg-crema/5 rounded-lg"
+            >
+              <p class="text-crema/80 leading-relaxed">
+                {item.answer}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Group Experiences -->
+  <section class="py-20 bg-warm-sand/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-6">
+            Experiencias para Grupos
+          </h2>
+          <p class="text-xl text-sage mb-8 leading-relaxed">
+            Creamos experiencias personalizadas para grupos especiales, eventos corporativos y celebraciones. Contáctanos para diseñar la experiencia perfecta para tu grupo.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-center text-sage">
+              <svg class="w-5 h-5 mr-3 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Grupos de 12 a 50 personas
+            </div>
+            <div class="flex items-center text-sage">
+              <svg class="w-5 h-5 mr-3 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Experiencias personalizadas
+            </div>
+            <div class="flex items-center text-sage">
+              <svg class="w-5 h-5 mr-3 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Maridajes especiales disponibles
+            </div>
+          </div>
+          <div class="mt-8">
+            <a href="/eventos" class="inline-flex items-center px-6 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors">
+              Más información
+              <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="reveal">
+          <img 
+            src="/images/vineyard-gallery/tasting-room.jpg" 
+            alt="Experiencias grupales en Torres del Valle" 
+            class="w-full h-96 object-cover rounded-lg shadow-lg"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-clay text-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-6">
+          Tu Experiencia Te Espera
+        </h2>
+        <p class="text-xl mb-8 text-crema/90">
+          Reserva hoy y descubre por qué Torres del Valle es una experiencia única en el Valle de Guadalupe
+        </p>
+        <a href="/reservaciones" class="inline-flex items-center px-8 py-4 bg-crema text-clay font-medium rounded hover:bg-crema/90 transition-colors text-lg">
+          Reserva ahora
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

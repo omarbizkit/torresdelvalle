@@ -1,0 +1,267 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const terroirCards = [
+  {
+    title: 'Suelo',
+    titleEn: 'Soil',
+    description: 'Suelos aluviales con alto contenido de caliza, perfectos para la viticultura de calidad.',
+    descriptionEn: 'Alluvial soils with high limestone content, perfect for quality viticulture.',
+    icon: '🪨'
+  },
+  {
+    title: 'Clima',
+    titleEn: 'Climate',
+    description: 'Influencia marítima con brumas matutinas que regulan la temperatura y preservan la acidez.',
+    descriptionEn: 'Maritime influence with morning fogs that regulate temperature and preserve acidity.',
+    icon: '🌊'
+  },
+  {
+    title: 'Altitud',
+    titleEn: 'Altitude',
+    description: '300 metros sobre el nivel del mar, proporcionando drenaje natural y exposición solar óptima.',
+    descriptionEn: '300 meters above sea level, providing natural drainage and optimal sun exposure.',
+    icon: '🏔️'
+  },
+  {
+    title: 'Variedades',
+    titleEn: 'Varietals',
+    description: 'Nebbiolo, Grenache, Chenin Blanc y otras variedades mediterráneas adaptadas a nuestro terruño.',
+    descriptionEn: 'Nebbiolo, Grenache, Chenin Blanc and other Mediterranean varieties adapted to our terroir.',
+    icon: '🍇'
+  },
+  {
+    title: 'Agua',
+    titleEn: 'Water',
+    description: 'Agricultura seca que respeta los recursos hídricos y concentra los sabores en la uva.',
+    descriptionEn: 'Dry farming that respects water resources and concentrates flavors in the grape.',
+    icon: '💧'
+  },
+  {
+    title: 'Biodiversidad',
+    titleEn: 'Biodiversity',
+    description: 'Cultivos de cobertura y prácticas regenerativas que promueven la salud del ecosistema.',
+    descriptionEn: 'Cover crops and regenerative practices that promote ecosystem health.',
+    icon: '🌱'
+  }
+];
+
+const practices = [
+  {
+    title: 'Agricultura Regenerativa',
+    titleEn: 'Regenerative Agriculture',
+    description: 'Implementamos prácticas que mejoran la salud del suelo y la biodiversidad. Nuestros cultivos de cobertura incluyen leguminosas y cereales que aportan nutrientes y estructura al suelo.',
+    descriptionEn: 'We implement practices that improve soil health and biodiversity. Our cover crops include legumes and cereals that add nutrients and structure to the soil.'
+  },
+  {
+    title: 'Levaduras Nativas',
+    titleEn: 'Native Yeasts',
+    description: 'Fermentamos con levaduras indígenas del viñedo, permitiendo que cada vino exprese auténticamente el carácter de su terruño de origen.',
+    descriptionEn: 'We ferment with native yeasts from the vineyard, allowing each wine to authentically express the character of its terroir of origin.'
+  },
+  {
+    title: 'Cosecha Manual',
+    titleEn: 'Manual Harvest',
+    description: 'Seleccionamos cada racimo a mano en el momento óptimo de madurez. Esta atención al detalle garantiza la máxima calidad de nuestras uvas.',
+    descriptionEn: 'We select each cluster by hand at the optimal moment of ripeness. This attention to detail guarantees the maximum quality of our grapes.'
+  },
+  {
+    title: 'Intervención Mínima',
+    titleEn: 'Minimal Intervention',
+    description: 'Enólogo como facilitador, no como manipulador. Permitimos que el terruño hable a través de cada vino con la mínima intervención posible.',
+    descriptionEn: 'Winemaker as facilitator, not manipulator. We allow the terroir to speak through each wine with the minimum possible intervention.'
+  },
+  {
+    title: 'En Proceso de Certificación',
+    titleEn: 'In Certification Process',
+    description: 'Estamos en proceso de certificación orgánica, trabajando hacia prácticas cada vez más sostenibles y respetuosas con el medio ambiente.',
+    descriptionEn: 'We are in the process of organic certification, working towards increasingly sustainable and environmentally respectful practices.'
+  }
+];
+
+const galleryImages = [
+  '/images/vineyard-gallery/golden-hour-landscape.jpg',
+  '/images/vineyard-gallery/soil-limestone.jpg',
+  '/images/vineyard-gallery/hands-harvest.jpg',
+  '/images/vineyard-gallery/barrel-room.jpg',
+  '/images/vineyard-gallery/coastal-fog.jpg',
+  '/images/vineyard-gallery/cover-crops.jpg',
+  '/images/vineyard-gallery/valley-panorama.jpg',
+  '/images/vineyard-gallery/tasting-room.jpg',
+  '/images/vineyard-gallery/grape-cluster.jpg'
+];
+---
+
+<Layout 
+  title="El Viñedo" 
+  description="Descubre el terruño único de Torres del Valle en Valle de Guadalupe. Conoce nuestras prácticas sostenibles y el carácter que da vida a nuestros vinos."
+  locale="es"
+>
+  <!-- Hero Section -->
+  <section class="py-20 bg-warm-sand/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center reveal">
+        <h1 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6">
+          Nuestro Viñedo
+        </h1>
+        <p class="text-xl text-sage max-w-3xl mx-auto leading-relaxed">
+          En el corazón del Valle de Guadalupe, nuestras vides crecen en un terruño único que combina suelos calcáreos, influencia costera y dedicación familiar para crear vinos que expresan auténticamente su origen.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Terroir Grid -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+          Nuestro Terruño
+        </h2>
+        <p class="text-xl text-sage max-w-2xl mx-auto">
+          Los elementos que dan vida a nuestros vinos
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {terroirCards.map((card, index) => (
+          <div class="text-center reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <div class="w-20 h-20 bg-stone rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+              {card.icon}
+            </div>
+            <h3 class="text-xl font-display font-semibold text-charcoal mb-3">
+              {card.title}
+            </h3>
+            <p class="text-sage leading-relaxed">
+              {card.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Practices Accordion -->
+  <section class="py-20 bg-stone text-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-4">
+          Nuestras Prácticas
+        </h2>
+        <p class="text-xl text-crema/90 max-w-2xl mx-auto">
+          Comprometidos con la sostenibilidad y la calidad
+        </p>
+      </div>
+      
+      <div class="space-y-4" x-data="{ active: null }">
+        {practices.map((practice, index) => (
+          <div class="reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <button
+              @click="active = active === {index} ? null : {index}"
+              class="w-full text-left p-6 bg-crema/10 rounded-lg hover:bg-crema/20 transition-colors focus:outline-none focus:ring-2 focus:ring-crema/50"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-xl font-display font-semibold">
+                  {practice.title}
+                </h3>
+                <svg 
+                  class="w-5 h-5 transform transition-transform"
+                  :class="active === {index} ? 'rotate-180' : ''"
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </button>
+            
+            <div 
+              x-show="active === {index}"
+              x-transition
+              class="mt-4 p-6 bg-crema/5 rounded-lg"
+            >
+              <p class="text-crema/80 leading-relaxed">
+                {practice.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Gallery -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+          Galería del Viñedo
+        </h2>
+        <p class="text-xl text-sage max-w-2xl mx-auto">
+          Un vistazo a nuestra vida cotidiana en el Valle
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {galleryImages.map((image, index) => (
+          <div class="reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <img 
+              src={image} 
+              alt={`Vista del viñedo ${index + 1}`}
+              class="w-full h-64 object-cover rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              loading="lazy"
+              onclick="openLightbox(this.src)"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-clay text-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-6">
+          Visita Nuestro Viñedo
+        </h2>
+        <p class="text-xl mb-8 text-crema/90">
+          Descubre de primera mano cómo cultivamos nuestras vides y elaboramos nuestros vinos
+        </p>
+        <a href="/reservaciones" class="inline-flex items-center px-8 py-4 bg-crema text-clay font-medium rounded hover:bg-crema/90 transition-colors text-lg">
+          Reserva tu experiencia
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  function openLightbox(src) {
+    // Simple lightbox implementation
+    const lightbox = document.createElement('div');
+    lightbox.className = 'fixed inset-0 bg-charcoal/90 z-50 flex items-center justify-center p-4';
+    lightbox.innerHTML = `
+      <div class="relative max-w-4xl max-h-full">
+        <img src="${src}" alt="Vineyard image" class="max-w-full max-h-full object-contain rounded-lg">
+        <button onclick="this.closest('.fixed').remove()" class="absolute top-4 right-4 text-white hover:text-warm-sand">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    `;
+    
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.remove();
+      }
+    });
+    
+    document.body.appendChild(lightbox);
+  }
+</script>

@@ -1,0 +1,82 @@
+---
+export interface Props {
+  title: string;
+  titleEn?: string;
+  duration: string;
+  price: string;
+  groupSize: string;
+  includes: string;
+  vibe: string;
+  image: string;
+  slug: string;
+  currentLocale?: 'es' | 'en';
+}
+
+const { 
+  title, 
+  titleEn, 
+  duration, 
+  price, 
+  groupSize, 
+  includes, 
+  vibe, 
+  image, 
+  slug,
+  currentLocale = 'es'
+} = Astro.props;
+
+const displayTitle = currentLocale === 'es' ? title : (titleEn || title);
+---
+
+<div class="group relative bg-crema rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+  <!-- Image -->
+  <div class="relative h-48 overflow-hidden">
+    <img 
+      src={image} 
+      alt={displayTitle}
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    
+    <!-- Overlay Content -->
+    <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+      <p class="text-sm font-medium">{vibe}</p>
+    </div>
+  </div>
+  
+  <!-- Content -->
+  <div class="p-6">
+    <h3 class="text-xl font-display font-semibold text-charcoal mb-3">
+      {displayTitle}
+    </h3>
+    
+    <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+      <div class="flex items-center text-sage">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        {duration}
+      </div>
+      
+      <div class="flex items-center text-sage">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        {groupSize}
+      </div>
+    </div>
+    
+    <p class="text-sage text-sm mb-4">{includes}</p>
+    
+    <div class="flex items-center justify-between">
+      <span class="text-2xl font-display font-semibold text-clay">{price}</span>
+      <a 
+        href={`/reservaciones?experience=${slug}`}
+        class="px-4 py-2 bg-vineyard-green text-crema text-sm font-medium rounded hover:bg-vineyard-green/90 transition-colors"
+      >
+        {currentLocale === 'es' ? 'Reservar' : 'Book'}
+      </a>
+    </div>
+  </div>
+</div>

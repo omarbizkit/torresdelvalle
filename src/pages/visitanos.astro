@@ -1,0 +1,379 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const directions = {
+  tijuana: {
+    title: 'Desde Tijuana',
+    time: '1.5 horas',
+    route: 'Toma la Carretera Federal 1D hacia Ensenada. Después de pasar el km 80, toma el desvío hacia Valle de Guadalupe. Sigue las señales hasta el km 85.'
+  },
+  ensenada: {
+    title: 'Desde Ensenada',
+    time: '30 minutos',
+    route: 'Toma la Carretera Federal 1D hacia Tijuana. Antes del km 90, toma el desvío hacia Valle de Guadalupe. Torres del Valle está en el km 85.'
+  },
+  usa: {
+    title: 'Desde Estados Unidos',
+    time: '2-3 horas',
+    route: 'Cruza por San Ysidro o Otay Mesa. Toma la Carretera Federal 1D en Tijuana hacia Ensenada. El Valle de Guadalupe está a 90 km al sur.'
+  },
+  local: {
+    title: 'Transporte Local',
+    time: 'Variable',
+    route: 'Recomendamos rentar vehículo o usar servicios de taxi local. No hay servicio de Uber en el Valle de Guadalupe.'
+  }
+};
+
+const hours = {
+  monday: { open: false, hours: null },
+  tuesday: { open: false, hours: null },
+  wednesday: { open: true, hours: '11:00 AM - 6:00 PM' },
+  thursday: { open: true, hours: '11:00 AM - 6:00 PM' },
+  friday: { open: true, hours: '11:00 AM - 6:00 PM' },
+  saturday: { open: true, hours: '11:00 AM - 6:00 PM' },
+  sunday: { open: true, hours: '11:00 AM - 6:00 PM' }
+};
+---
+
+<Layout 
+  title="Visítanos" 
+  description="Cómo llegar a Torres del Valle en Valle de Guadalupe. Horarios, direcciones y toda la información para planificar tu visita."
+  locale="es"
+>
+  <!-- Hero Section -->
+  <section class="py-20 bg-warm-sand/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center reveal">
+        <h1 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6">
+          Visítanos en el Valle
+        </h1>
+        <p class="text-xl text-sage max-w-2xl mx-auto">
+          Te esperamos en el corazón del Valle de Guadalupe para compartir nuestra pasión por el vino
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Map Section -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-6">
+            Ubicación
+          </h2>
+          <div class="space-y-4 text-sage">
+            <div class="flex items-start">
+              <svg class="w-6 h-6 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <p class="font-semibold text-charcoal">Dirección</p>
+                <p>Km 85, Valle de Guadalupe</p>
+                <p>Ensenada, Baja California, México</p>
+                <p>C.P. 22760</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <svg class="w-6 h-6 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+              </svg>
+              <div>
+                <p class="font-semibold text-charcoal">Teléfono</p>
+                <p>+52 646 123 4567</p>
+                <p>WhatsApp disponible</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <svg class="w-6 h-6 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+              </svg>
+              <div>
+                <p class="font-semibold text-charcoal">Email</p>
+                <p>hola@torresdelvalle.mx</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <svg class="w-6 h-6 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <p class="font-semibold text-charcoal">Horarios</p>
+                <p>Miércoles - Domingo: 11:00 AM - 6:00 PM</p>
+                <p>Lunes - Martes: Cerrado</p>
+                <p class="text-sm mt-2 text-sage">Reserva recomendada</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="reveal">
+          <!-- Google Maps Embed -->
+          <div class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3366.123456789!2d-116.5833!3d32.0833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDA0JzAwLjAiTiAxMTbCsDM0JzU5LjkiVw!5e0!3m2!1ses!2smx!4v1234567890"
+              width="100%" 
+              height="450" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación de Torres del Valle"
+            ></iframe>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <a 
+              href="https://maps.google.com/?q=32.0833,-116.5833"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-4 py-2 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors"
+            >
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+              </svg>
+              Abrir en Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Directions Tabs -->
+  <section class="py-20 bg-stone text-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-4">
+          Cómo Llegar
+        </h2>
+        <p class="text-xl text-crema/90">
+          Direcciones desde diferentes puntos de partida
+        </p>
+      </div>
+      
+      <div class="max-w-4xl mx-auto" x-data="{ activeTab: 'tijuana' }">
+        <!-- Tab Navigation -->
+        <div class="flex flex-wrap justify-center mb-8 border-b border-crema/20">
+          {Object.entries(directions).map(([key, direction]) => (
+            <button
+              @click="activeTab = '{key}'"
+              class="px-6 py-3 font-medium transition-colors relative"
+              :class="activeTab === '{key}' ? 'text-crema' : 'text-crema/60 hover:text-crema'"
+            >
+              {direction.title}
+              <span 
+                class="absolute bottom-0 left-0 right-0 h-0.5 bg-clay transition-all"
+                :class="activeTab === '{key}' ? 'opacity-100' : 'opacity-0'"
+              ></span>
+            </button>
+          ))}
+        </div>
+        
+        <!-- Tab Content -->
+        <div class="bg-crema/10 rounded-lg p-8">
+          <template x-for="[key, direction] in Object.entries(directions)" :key="key">
+            <div x-show="activeTab === key" x-transition>
+              <div class="flex items-center mb-4">
+                <svg class="w-6 h-6 mr-3 text-clay" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-lg font-semibold">Tiempo estimado: {direction.time}</span>
+              </div>
+              <p class="text-crema/80 leading-relaxed">
+                {direction.route}
+              </p>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Accessibility -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-6">
+            Accesibilidad
+          </h2>
+          <p class="text-xl text-sage mb-8 leading-relaxed">
+            En Torres del Valle nos comprometemos a hacer que nuestras instalaciones y experiencias sean accesibles para todos nuestros visitantes.
+          </p>
+          
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold text-charcoal mb-2">Accesibilidad Física</h3>
+              <ul class="text-sage space-y-2">
+                <li class="flex items-center">
+                  <svg class="w-5 h-5 mr-2 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  Estacionamiento accesible disponible
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-5 h-5 mr-2 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  Caminos pavimentados entre áreas
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-5 h-5 mr-2 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  Baños accesibles disponibles
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-5 h-5 mr-2 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  Áreas de cata en nivel del suelo
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="text-lg font-semibold text-charcoal mb-2">Servicios Adicionales</h3>
+              <ul class="text-sage space-y-2">
+                <li class="flex items-center">
+                  <svg class="w-5 h-5 mr-2 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  Personal capacitado en primeros auxilios
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-5 h-5 mr-2 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  Información en formatos accesibles
+                </li>
+                <li class="flex items-center">
+                  <svg class="w-5 h-5 mr-2 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  Asistencia personalizada disponible
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="mt-8">
+            <p class="text-sm text-sage">
+              <strong>Importante:</strong> Si tienes necesidades específicas de accesibilidad, por favor comunícanoslo al momento de hacer tu reserva para poder preparar todo adecuadamente.
+            </p>
+          </div>
+        </div>
+        
+        <div class="reveal">
+          <img 
+            src="/images/vineyard-gallery/accessible-path.jpg" 
+            alt="Camino accesible en Torres del Valle" 
+            class="w-full h-96 object-cover rounded-lg shadow-lg"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Tips for Visitors -->
+  <section class="py-20 bg-warm-sand/30">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+          Consejos para tu Visita
+        </h2>
+        <p class="text-xl text-sage">
+          Recomendaciones para disfrutar al máximo tu experiencia
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="reveal">
+          <h3 class="text-xl font-display font-semibold text-charcoal mb-4">Qué Traer</h3>
+          <ul class="space-y-3 text-sage">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Ropa cómoda y cerrada
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Gorra o sombrero para protección solar
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Identificación oficial vigente
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Cámara para capturar momentos
+            </li>
+          </ul>
+        </div>
+        
+        <div class="reveal">
+          <h3 class="text-xl font-display font-semibold text-charcoal mb-4">Recomendaciones</h3>
+          <ul class="space-y-3 text-sage">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Reserva con anticipación
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Llega 15 minutos antes
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Designa un conductor sobrio
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 mr-3 mt-1 text-clay" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Confirma horario antes de visitar
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-clay text-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-6">
+          Te Esperamos en el Valle
+        </h2>
+        <p class="text-xl mb-8 text-crema/90">
+          Reserva tu visita y descubre por qué Torres del Valle es una experiencia única
+        </p>
+        <a href="/reservaciones" class="inline-flex items-center px-8 py-4 bg-crema text-clay font-medium rounded hover:bg-crema/90 transition-colors text-lg">
+          Reserva tu visita
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

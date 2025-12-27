@@ -1,0 +1,56 @@
+---
+export interface Props {
+  name: string;
+  vintage: number;
+  notes: string;
+  price: string;
+  image: string;
+  slug: string;
+}
+
+const { name, vintage, notes, price, image, slug } = Astro.props;
+---
+
+<div class="group relative bg-crema rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+  <!-- Image Container -->
+  <div class="relative aspect-[4/5] overflow-hidden bg-stone/20">
+    <img 
+      src={image} 
+      alt={`${name} ${vintage}`}
+      class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 p-4"
+      loading="lazy"
+    />
+    
+    <!-- Hover Overlay -->
+    <div class="absolute inset-0 bg-charcoal/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+      <span class="text-crema font-medium px-6 py-2 border border-crema rounded hover:bg-crema hover:text-charcoal transition-colors">
+        Ver detalles
+      </span>
+    </div>
+  </div>
+  
+  <!-- Content -->
+  <div class="p-6">
+    <div class="flex items-baseline justify-between mb-2">
+      <h3 class="text-xl font-accent font-semibold text-charcoal">
+        {name}
+      </h3>
+      <span class="text-sm text-sage font-medium">{vintage}</span>
+    </div>
+    
+    <p class="text-sage text-sm mb-4 leading-relaxed">{notes}</p>
+    
+    <div class="flex items-center justify-between">
+      <span class="text-2xl font-display font-semibold text-clay">{price}</span>
+      <a 
+        href={`/vinos/${slug}`}
+        class="text-vineyard-green hover:text-clay transition-colors text-sm font-medium"
+      >
+        Más información
+        <svg class="inline w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>

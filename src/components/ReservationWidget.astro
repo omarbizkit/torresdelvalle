@@ -1,0 +1,525 @@
+---
+export interface Props {
+  currentLocale?: 'es' | 'en';
+}
+
+const { currentLocale = 'es' } = Astro.props;
+
+const experiences = {
+  es: [
+    { value: 'cata-clasica', label: 'Cata Clásica - $450 MXN', duration: '90 min' },
+    { value: 'tour-privado', label: 'Tour Privado - $1,200 MXN', duration: '2.5 hrs' },
+    { value: 'cosecha', label: 'Experiencia Cosecha - $1,800 MXN', duration: '3 hrs' },
+    { value: 'evento-privado', label: 'Evento Privado - Precio variable', duration: 'Personalizado' }
+  ],
+  en: [
+    { value: 'cata-clasica', label: 'Classic Tasting - $25 USD', duration: '90 min' },
+    { value: 'tour-privado', label: 'Private Tour - $65 USD', duration: '2.5 hrs' },
+    { value: 'cosecha', label: 'Harvest Experience - $95 USD', duration: '3 hrs' },
+    { value: 'evento-privado', label: 'Private Event - Price varies', duration: 'Custom' }
+  ]
+};
+
+const currentExperiences = experiences[currentLocale as keyof typeof experiences];
+
+const content = {
+  es: {
+    title: 'Reserva tu Experiencia',
+    step1: 'Selecciona tu experiencia',
+    step2: 'Elige fecha y hora',
+    step3: 'Información de contacto',
+    step4: 'Confirmación',
+    experience: 'Experiencia',
+    date: 'Fecha',
+    time: 'Hora',
+    guests: 'Número de personas',
+    name: 'Nombre completo',
+    email: 'Correo electrónico',
+    phone: 'Teléfono (WhatsApp)',
+    dietary: 'Restricciones alimentarias',
+    dietaryPlaceholder: 'Alergias, vegetarianos, etc. (opcional)',
+    back: 'Atrás',
+    next: 'Siguiente',
+    confirm: 'Confirmar Reserva',
+    submitting: 'Enviando...',
+    success: '¡Reserva enviada con éxito!',
+    successMessage: 'Te contactaremos por WhatsApp para confirmar tu reserva.',
+    error: 'Error al enviar la reserva. Por favor intenta de nuevo.',
+    required: 'Este campo es requerido',
+    invalidEmail: 'Correo electrónico inválido',
+    invalidPhone: 'Teléfono inválido',
+    policies: {
+      title: 'Políticas y Recomendaciones',
+      items: [
+        'Edad mínima: 18 años',
+        'Reserva recomendada con 48 horas de anticipación',
+        'Cancelaciones con 24 horas de anticipación',
+        'Transporte no incluido',
+        'Se recomienda ropa cómoda y cerrada'
+      ]
+    }
+  },
+  en: {
+    title: 'Book Your Experience',
+    step1: 'Select your experience',
+    step2: 'Choose date and time',
+    step3: 'Contact information',
+    step4: 'Confirmation',
+    experience: 'Experience',
+    date: 'Date',
+    time: 'Time',
+    guests: 'Number of guests',
+    name: 'Full name',
+    email: 'Email',
+    phone: 'Phone (WhatsApp)',
+    dietary: 'Dietary restrictions',
+    dietaryPlaceholder: 'Allergies, vegetarian, etc. (optional)',
+    back: 'Back',
+    next: 'Next',
+    confirm: 'Confirm Booking',
+    submitting: 'Submitting...',
+    success: 'Booking sent successfully!',
+    successMessage: 'We will contact you via WhatsApp to confirm your reservation.',
+    error: 'Error sending booking. Please try again.',
+    required: 'This field is required',
+    invalidEmail: 'Invalid email',
+    invalidPhone: 'Invalid phone',
+    policies: {
+      title: 'Policies & Recommendations',
+      items: [
+        'Minimum age: 18 years',
+        'Reservation recommended 48 hours in advance',
+        'Cancellations with 24 hours notice',
+        'Transportation not included',
+        'Comfortable closed-toe shoes recommended'
+      ]
+    }
+  }
+};
+
+const currentContent = content[currentLocale as keyof typeof content];
+---
+
+<div 
+  class="max-w-4xl mx-auto"
+  x-data="{
+    step: 1,
+    formData: {
+      experience: '',
+      date: '',
+      time: '',
+      guests: 2,
+      name: '',
+      email: '',
+      phone: '',
+      dietary: ''
+    },
+    errors: {},
+    submitting: false,
+    success: false,
+    
+    validateStep1() {
+      this.errors = {};
+      if (!this.formData.experience) {
+        this.errors.experience = '${currentContent.required}';
+        return false;
+      }
+      return true;
+    },
+    
+    validateStep2() {
+      this.errors = {};
+      if (!this.formData.date) {
+        this.errors.date = '${currentContent.required}';
+        return false;
+      }
+      if (!this.formData.time) {
+        this.errors.time = '${currentContent.required}';
+        return false;
+      }
+      if (this.formData.guests < 1 || this.formData.guests > 12) {
+        this.errors.guests = '1-12 guests required';
+        return false;
+      }
+      return true;
+    },
+    
+    validateStep3() {
+      this.errors = {};
+      if (!this.formData.name.trim()) {
+        this.errors.name = '${currentContent.required}';
+        return false;
+      }
+      if (!this.formData.email.trim()) {
+        this.errors.email = '${currentContent.required}';
+        return false;
+      }
+      if (!/\S+@\S+\.\S+/.test(this.formData.email)) {
+        this.errors.email = '${currentContent.invalidEmail}';
+        return false;
+      }
+      if (!this.formData.phone.trim()) {
+        this.errors.phone = '${currentContent.required}';
+        return false;
+      }
+      return true;
+    },
+    
+    nextStep() {
+      let isValid = false;
+      if (this.step === 1) isValid = this.validateStep1();
+      else if (this.step === 2) isValid = this.validateStep2();
+      else if (this.step === 3) isValid = this.validateStep3();
+      
+      if (isValid) {
+        this.step++;
+        this.errors = {};
+      }
+    },
+    
+    prevStep() {
+      if (this.step > 1) {
+        this.step--;
+        this.errors = {};
+      }
+    },
+    
+    async submitForm() {
+      if (!this.validateStep3()) return;
+      
+      this.submitting = true;
+      
+      try {
+        // FormSpark endpoint placeholder
+        const response = await fetch('https://submit-form.com/your-id', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...this.formData,
+            locale: '${currentLocale}',
+            timestamp: new Date().toISOString()
+          })
+        });
+        
+        if (response.ok) {
+          this.success = true;
+          
+          // WhatsApp integration
+          const message = `Hola, quiero confirmar mi reserva para ${this.formData.experience} el ${this.formData.date} a las ${this.formData.time} para ${this.formData.guests} personas. Nombre: ${this.formData.name}`;
+          const whatsappUrl = `https://wa.me/526461234567?text=${encodeURIComponent(message)}`;
+          
+          // Open WhatsApp after 2 seconds
+          setTimeout(() => {
+            window.open(whatsappUrl, '_blank');
+          }, 2000);
+          
+        } else {
+          throw new Error('Failed to submit');
+        }
+      } catch (error) {
+        this.errors.submit = '${currentContent.error}';
+      } finally {
+        this.submitting = false;
+      }
+    },
+    
+    getMinDate() {
+      const today = new Date();
+      today.setDate(today.getDate() + 1); // Tomorrow
+      return today.toISOString().split('T')[0];
+    },
+    
+    isDateDisabled(date) {
+      const day = new Date(date).getDay();
+      return day === 0 || day === 1; // Sunday or Monday
+    }
+  }"
+>
+  <!-- Progress Bar -->
+  <div class="mb-8">
+    <div class="flex items-center justify-between mb-2">
+      <span class="text-sm font-medium text-sage">Paso {step} de 4</span>
+    </div>
+    <div class="w-full bg-warm-sand rounded-full h-2">
+      <div 
+        class="bg-clay h-2 rounded-full transition-all duration-300"
+        :style="`width: ${(step / 4) * 100}%`"
+      ></div>
+    </div>
+  </div>
+  
+  <!-- Success Message -->
+  <div x-show="success" x-transition class="bg-vineyard-green text-crema p-6 rounded-lg mb-6">
+    <h3 class="text-xl font-display font-semibold mb-2">{currentContent.success}</h3>
+    <p>{currentContent.successMessage}</p>
+    <p class="mt-2 text-sm opacity-90">
+      Te redirigiremos a WhatsApp para confirmar tu reserva...
+    </p>
+  </div>
+  
+  <!-- Step 1: Experience Selection -->
+  <div x-show="step === 1 && !success" x-transition>
+    <h2 class="text-2xl font-display font-semibold text-charcoal mb-6">
+      {currentContent.step1}
+    </h2>
+    
+    <div class="space-y-4">
+      <template x-for="exp in experiences" :key="exp.value">
+        <label 
+          class="block p-4 border-2 border-warm-sand rounded-lg cursor-pointer hover:border-stone transition-colors"
+          :class="formData.experience === exp.value ? 'border-clay bg-clay/5' : ''"
+        >
+          <input 
+            type="radio" 
+            x-model="formData.experience" 
+            :value="exp.value"
+            class="sr-only"
+          />
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-semibold text-charcoal" x-text="exp.label"></h3>
+              <p class="text-sm text-sage" x-text="exp.duration"></p>
+            </div>
+            <div 
+              class="w-5 h-5 border-2 border-warm-sand rounded-full flex items-center justify-center"
+              :class="formData.experience === exp.value ? 'border-clay' : ''"
+            >
+              <div 
+                class="w-2 h-2 bg-clay rounded-full"
+                x-show="formData.experience === exp.value"
+              ></div>
+            </div>
+          </div>
+        </label>
+      </template>
+    </div>
+    
+    <div x-show="errors.experience" class="mt-2 text-sm text-clay" x-text="errors.experience"></div>
+    
+    <div class="mt-8 flex justify-end">
+      <button 
+        @click="nextStep()"
+        class="px-6 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors"
+      >
+        {currentContent.next}
+      </button>
+    </div>
+  </div>
+  
+  <!-- Step 2: Date & Time -->
+  <div x-show="step === 2 && !success" x-transition>
+    <h2 class="text-2xl font-display font-semibold text-charcoal mb-6">
+      {currentContent.step2}
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-charcoal mb-2">
+          {currentContent.date}
+        </label>
+        <input 
+          type="date" 
+          x-model="formData.date"
+          :min="getMinDate()"
+          class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay"
+          :class="errors.date ? 'border-clay' : ''"
+        />
+        <div x-show="errors.date" class="mt-1 text-sm text-clay" x-text="errors.date"></div>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-charcoal mb-2">
+          {currentContent.time}
+        </label>
+        <select 
+          x-model="formData.time"
+          class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay"
+          :class="errors.time ? 'border-clay' : ''"
+        >
+          <option value="">Selecciona una hora</option>
+          <option value="11:00">11:00 AM</option>
+          <option value="12:00">12:00 PM</option>
+          <option value="13:00">1:00 PM</option>
+          <option value="14:00">2:00 PM</option>
+          <option value="15:00">3:00 PM</option>
+          <option value="16:00">4:00 PM</option>
+        </select>
+        <div x-show="errors.time" class="mt-1 text-sm text-clay" x-text="errors.time"></div>
+      </div>
+    </div>
+    
+    <div class="mt-6">
+      <label class="block text-sm font-medium text-charcoal mb-2">
+        {currentContent.guests}
+      </label>
+      <input 
+        type="number" 
+        x-model="formData.guests"
+        min="1" 
+        max="12"
+        class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay"
+        :class="errors.guests ? 'border-clay' : ''"
+      />
+      <div x-show="errors.guests" class="mt-1 text-sm text-clay" x-text="errors.guests"></div>
+    </div>
+    
+    <div class="mt-8 flex justify-between">
+      <button 
+        @click="prevStep()"
+        class="px-6 py-3 border border-warm-sand text-charcoal font-medium rounded hover:bg-warm-sand transition-colors"
+      >
+        {currentContent.back}
+      </button>
+      <button 
+        @click="nextStep()"
+        class="px-6 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors"
+      >
+        {currentContent.next}
+      </button>
+    </div>
+  </div>
+  
+  <!-- Step 3: Contact Information -->
+  <div x-show="step === 3 && !success" x-transition>
+    <h2 class="text-2xl font-display font-semibold text-charcoal mb-6">
+      {currentContent.step3}
+    </h2>
+    
+    <div class="space-y-6">
+      <div>
+        <label class="block text-sm font-medium text-charcoal mb-2">
+          {currentContent.name}
+        </label>
+        <input 
+          type="text" 
+          x-model="formData.name"
+          class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay"
+          :class="errors.name ? 'border-clay' : ''"
+        />
+        <div x-show="errors.name" class="mt-1 text-sm text-clay" x-text="errors.name"></div>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-charcoal mb-2">
+          {currentContent.email}
+        </label>
+        <input 
+          type="email" 
+          x-model="formData.email"
+          class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay"
+          :class="errors.email ? 'border-clay' : ''"
+        />
+        <div x-show="errors.email" class="mt-1 text-sm text-clay" x-text="errors.email"></div>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-charcoal mb-2">
+          {currentContent.phone}
+        </label>
+        <input 
+          type="tel" 
+          x-model="formData.phone"
+          class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay"
+          :class="errors.phone ? 'border-clay' : ''"
+        />
+        <div x-show="errors.phone" class="mt-1 text-sm text-clay" x-text="errors.phone"></div>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-charcoal mb-2">
+          {currentContent.dietary}
+        </label>
+        <textarea 
+          x-model="formData.dietary"
+          rows="3"
+          :placeholder="currentContent.dietaryPlaceholder"
+          class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay resize-none"
+        ></textarea>
+      </div>
+    </div>
+    
+    <div x-show="errors.submit" class="mt-4 p-4 bg-clay/10 border border-clay text-clay rounded" x-text="errors.submit"></div>
+    
+    <div class="mt-8 flex justify-between">
+      <button 
+        @click="prevStep()"
+        class="px-6 py-3 border border-warm-sand text-charcoal font-medium rounded hover:bg-warm-sand transition-colors"
+      >
+        {currentContent.back}
+      </button>
+      <button 
+        @click="nextStep()"
+        class="px-6 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors"
+      >
+        {currentContent.next}
+      </button>
+    </div>
+  </div>
+  
+  <!-- Step 4: Confirmation -->
+  <div x-show="step === 4 && !success" x-transition>
+    <h2 class="text-2xl font-display font-semibold text-charcoal mb-6">
+      {currentContent.step4}
+    </h2>
+    
+    <div class="bg-warm-sand/30 rounded-lg p-6 mb-6">
+      <h3 class="font-semibold text-charcoal mb-4">Resumen de tu reserva</h3>
+      
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between">
+          <span class="text-sage">Experiencia:</span>
+          <span class="text-charcoal" x-text="experiences.find(e => e.value === formData.experience)?.label"></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sage">Fecha:</span>
+          <span class="text-charcoal" x-text="formData.date"></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sage">Hora:</span>
+          <span class="text-charcoal" x-text="formData.time"></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sage">Personas:</span>
+          <span class="text-charcoal" x-text="formData.guests"></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sage">Nombre:</span>
+          <span class="text-charcoal" x-text="formData.name"></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-sage">Email:</span>
+          <span class="text-charcoal" x-text="formData.email"></span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Policies -->
+    <div class="bg-sage/10 rounded-lg p-4 mb-6">
+      <h4 class="font-semibold text-charcoal mb-2">{currentContent.policies.title}</h4>
+      <ul class="text-sm text-sage space-y-1">
+        {currentContent.policies.items.map((item) => (
+          <li>• {item}</li>
+        ))}
+      </ul>
+    </div>
+    
+    <div class="flex justify-between">
+      <button 
+        @click="prevStep()"
+        class="px-6 py-3 border border-warm-sand text-charcoal font-medium rounded hover:bg-warm-sand transition-colors"
+      >
+        {currentContent.back}
+      </button>
+      <button 
+        @click="submitForm()"
+        :disabled="submitting"
+        class="px-8 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <span x-show="!submitting">{currentContent.confirm}</span>
+        <span x-show="submitting">{currentContent.submitting}</span>
+      </button>
+    </div>
+  </div>
+</div>

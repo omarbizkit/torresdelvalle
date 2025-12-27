@@ -1,0 +1,467 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const tiers = [
+  {
+    name: 'Suelo',
+    nameEn: 'Soil',
+    price: '$1,200 MXN',
+    priceEn: '$65 USD',
+    bottles: 2,
+    frequency: 'Trimestral',
+    frequencyEn: 'Quarterly',
+    features: [
+      '2 botellas por trimestre',
+      '15% de descuento en compras',
+      'Acceso anticipado a nuevas añadas',
+      'Boletín informativo exclusivo',
+      'Envío incluido en México'
+    ],
+    featuresEn: [
+      '2 bottles per quarter',
+      '15% discount on purchases',
+      'Early access to new vintages',
+      'Exclusive newsletter',
+      'Shipping included in Mexico'
+    ],
+    popular: false
+  },
+  {
+    name: 'Viñedos',
+    nameEn: 'Vineyards',
+    price: '$3,200 MXN',
+    priceEn: '$175 USD',
+    bottles: 6,
+    frequency: 'Trimestral',
+    frequencyEn: 'Quarterly',
+    features: [
+      '6 botellas por trimestre',
+      '20% de descuento en compras',
+      'Acceso anticipado a nuevas añadas',
+      'Boletín informativo exclusivo',
+      'Envío incluido en México',
+      'Invitación a eventos exclusivos',
+      '1 visita privada al año'
+    ],
+    featuresEn: [
+      '6 bottles per quarter',
+      '20% discount on purchases',
+      'Early access to new vintages',
+      'Exclusive newsletter',
+      'Shipping included in Mexico',
+      'Invitation to exclusive events',
+      '1 private visit per year'
+    ],
+    popular: true
+  },
+  {
+    name: 'Valle',
+    nameEn: 'Valley',
+    price: '$6,000 MXN',
+    priceEn: '$325 USD',
+    bottles: 12,
+    frequency: 'Trimestral',
+    frequencyEn: 'Quarterly',
+    features: [
+      '12 botellas por trimestre',
+      '25% de descuento en compras',
+      'Acceso anticipado a nuevas añadas',
+      'Boletín informativo exclusivo',
+      'Envío incluido en México',
+      'Invitación a eventos exclusivos',
+      '2 visitas privadas al año',
+      'Botella de aniversario exclusiva',
+      'Acceso a ediciones limitadas'
+    ],
+    featuresEn: [
+      '12 bottles per quarter',
+      '25% discount on purchases',
+      'Early access to new vintages',
+      'Exclusive newsletter',
+      'Shipping included in Mexico',
+      'Invitation to exclusive events',
+      '2 private visits per year',
+      'Exclusive anniversary bottle',
+      'Access to limited editions'
+    ],
+    popular: false
+  }
+];
+
+const faqItems = [
+  {
+    question: '¿Cómo funciona el envío?',
+    answer: 'Enviamos a todo México. Las entregas se realizan en la segunda semana de cada mes. Recibirás un tracking por correo electrónico.',
+    questionEn: 'How does shipping work?',
+    answerEn: 'We ship throughout Mexico. Deliveries are made in the second week of each month. You will receive tracking by email.'
+  },
+  {
+    question: '¿Puedo cancelar en cualquier momento?',
+    answer: 'Sí, puedes cancelar tu membresía en cualquier momento. El envío actual se completará, pero no se renovará.',
+    questionEn: 'Can I cancel anytime?',
+    answerEn: 'Yes, you can cancel your membership at any time. The current shipment will be completed, but it will not renew.'
+  },
+  {
+    question: '¿Puedo personalizar mi selección?',
+    answer: 'Sí, puedes indicar tus preferencias en el formulario de registro. Intentamos adaptar las selecciones a tus gustos.',
+    questionEn: 'Can I customize my selection?',
+    answerEn: 'Yes, you can indicate your preferences in the registration form. We try to adapt the selections to your tastes.'
+  },
+  {
+    question: '¿Incluyen vinos de edición limitada?',
+    answer: 'Los miembros del nivel Valle reciben acceso prioritario a nuestras ediciones limitadas y reservas especiales.',
+    questionEn: 'Do you include limited edition wines?',
+    answerEn: 'Valle level members receive priority access to our limited editions and special reserves.'
+  },
+  {
+    question: '¿Hay algún costo de membresía adicional?',
+    answer: 'No hay costos de membresía adicionales. Solo pagas por las botellas que recibes cada trimestre.',
+    questionEn: 'Are there any additional membership fees?',
+    answerEn: 'There are no additional membership fees. You only pay for the bottles you receive each quarter.'
+  }
+];
+---
+
+<Layout 
+  title="Club de Vinos" 
+  description="Únete al club de vinos de Torres del Valle y recibe nuestras mejores cosechas directo en tu puerta. Beneficios exclusivos y acceso prioritario."
+  locale="es"
+>
+  <!-- Hero Section -->
+  <section class="py-20 bg-warm-sand/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center reveal">
+        <h1 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6">
+          Club de Vinos Torres del Valle
+        </h1>
+        <p class="text-xl text-sage max-w-3xl mx-auto leading-relaxed">
+          Únete a nuestra familia de socios y recibe nuestras mejores cosechas directo en tu puerta. Beneficios exclusivos, acceso prioritario a ediciones limitadas y más.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Membership Tiers -->
+  <section class="py-20 bg-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+          Elige tu Nivel
+        </h2>
+        <p class="text-xl text-sage max-w-2xl mx-auto">
+          Tres niveles diseñados para diferentes estilos de disfrute del vino
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {tiers.map((tier, index) => (
+          <div class="reveal relative" style={`animation-delay: ${index * 0.1}s;`}>
+            {tier.popular && (
+              <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <span class="px-4 py-2 bg-clay text-crema text-sm font-medium rounded-full">
+                  Más Popular
+                </span>
+              </div>
+            )}
+            
+            <div class={`bg-white rounded-lg shadow-lg p-8 h-full ${tier.popular ? 'ring-2 ring-clay' : ''}`}>
+              <div class="text-center mb-8">
+                <h3 class="text-2xl font-display font-semibold text-charcoal mb-2">
+                  {tier.name}
+                </h3>
+                <p class="text-sage mb-4">{tier.frequency}</p>
+                <div class="text-4xl font-display font-light text-clay mb-2">
+                  {tier.price}
+                </div>
+                <p class="text-sage">
+                  {tier.bottles} botellas por trimestre
+                </p>
+              </div>
+              
+              <ul class="space-y-3 mb-8">
+                {tier.features.map((feature) => (
+                  <li class="flex items-start">
+                    <svg class="w-5 h-5 mr-3 mt-1 text-clay flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="text-sage">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <button 
+                class={`w-full py-3 px-6 font-medium rounded transition-colors ${
+                  tier.popular 
+                    ? 'bg-clay text-crema hover:bg-clay/90' 
+                    : 'border-2 border-clay text-clay hover:bg-clay hover:text-crema'
+                }`}
+                onclick="document.getElementById('signup-form').scrollIntoView({ behavior: 'smooth' })"
+              >
+                Unirme al Club
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Benefits Highlight -->
+  <section class="py-20 bg-stone text-crema">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-4">
+          Beneficios Exclusivos
+        </h2>
+        <p class="text-xl text-crema/90 max-w-2xl mx-auto">
+          Más que solo vinos, una experiencia completa
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {[
+          { icon: '🍷', title: 'Selección Curada', desc: 'Vinos seleccionados personalmente por Lilibeth Torres' },
+          { icon: '🚚', title: 'Envío Gratis', desc: 'Envío incluido a todo México' },
+          { icon: '🎉', title: 'Eventos Exclusivos', desc: 'Invitaciones a catas y eventos privados' },
+          { icon: '📚', title: 'Contenido Educativo', desc: 'Aprende sobre viticultura y elaboración' }
+        ].map((benefit, index) => (
+          <div class="text-center reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <div class="text-4xl mb-4">{benefit.icon}</div>
+            <h3 class="text-xl font-display font-semibold mb-3">{benefit.title}</h3>
+            <p class="text-crema/80">{benefit.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Signup Form -->
+  <section id="signup-form" class="py-20 bg-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-display font-light text-charcoal mb-4">
+            Únete al Club
+          </h2>
+          <p class="text-sage">
+            Completa el formulario para comenzar tu membresía
+          </p>
+        </div>
+        
+        <form class="space-y-6" x-data="{ selectedTier: 'Viñedos' }">
+          <!-- Tier Selection -->
+          <div>
+            <label class="block text-sm font-medium text-charcoal mb-3">
+              Selecciona tu nivel
+            </label>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {tiers.map((tier) => (
+                <label class="relative">
+                  <input 
+                    type="radio" 
+                    name="tier" 
+                    value={tier.name}
+                    x-model="selectedTier"
+                    class="sr-only"
+                  />
+                  <div 
+                    class={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
+                      tier.popular ? 'border-clay bg-clay/5' : 'border-warm-sand hover:border-stone'
+                    }`}
+                    :class="selectedTier === '{tier.name}' ? 'border-clay bg-clay/5' : ''"
+                  >
+                    <div class="text-center">
+                      <h3 class="font-semibold text-charcoal">{tier.name}</h3>
+                      <p class="text-clay font-display text-lg">{tier.price}</p>
+                      <p class="text-sm text-sage">{tier.frequency}</p>
+                    </div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Personal Information -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-charcoal mb-2">
+                Nombre completo *
+              </label>
+              <input 
+                type="text" 
+                required
+                class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay"
+              />
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-charcoal mb-2">
+                Email *
+              </label>
+              <input 
+                type="email" 
+                required
+                class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay"
+              />
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-charcoal mb-2">
+                Teléfono (WhatsApp) *
+              </label>
+              <input 
+                type="tel" 
+                required
+                class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay"
+              />
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-charcoal mb-2">
+                Fecha de nacimiento *
+              </label>
+              <input 
+                type="date" 
+                required
+                class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay"
+              />
+            </div>
+          </div>
+          
+          <!-- Address -->
+          <div>
+            <label class="block text-sm font-medium text-charcoal mb-2">
+              Dirección de envío *
+            </label>
+            <textarea 
+              rows="3"
+              required
+              placeholder="Calle, número, colonia, código postal, ciudad, estado"
+              class="w-full px-4 py-3 border border-warm-sand rounded focus:outline-none focus:border-clay resize-none"
+            ></textarea>
+          </div>
+          
+          <!-- Wine Preferences -->
+          <div>
+            <label class="block text-sm font-medium text-charcoal mb-3">
+              Preferencias de vino (opcional)
+            </label>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {['Tintos', 'Blancos', 'Rosados', 'Espumosos'].map((type) => (
+                <label class="flex items-center">
+                  <input 
+                    type="checkbox" 
+                    class="mr-2 text-clay focus:ring-clay"
+                  />
+                  <span class="text-sage">{type}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Terms -->
+          <div>
+            <label class="flex items-start">
+              <input 
+                type="checkbox" 
+                required
+                class="mr-3 mt-1 text-clay focus:ring-clay"
+              />
+              <span class="text-sm text-sage">
+                Acepto los términos y condiciones del club de vinos. Confirmo que tengo 18 años o más.
+              </span>
+            </label>
+          </div>
+          
+          <!-- Submit Button -->
+          <div class="text-center">
+            <button 
+              type="submit"
+              class="px-8 py-4 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors text-lg"
+            >
+              Unirme al Club
+            </button>
+            <p class="text-sm text-sage mt-4">
+              Serás redirigido a Stripe para completar tu pago de forma segura
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FAQ -->
+  <section class="py-20 bg-warm-sand/30">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+          Preguntas Frecuentes
+        </h2>
+        <p class="text-xl text-sage">
+          Todo lo que necesitas saber sobre el club
+        </p>
+      </div>
+      
+      <div class="space-y-6" x-data="{ active: null }">
+        {faqItems.map((item, index) => (
+          <div class="reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <button
+              @click="active = active === {index} ? null : {index}"
+              class="w-full text-left p-6 bg-white rounded-lg hover:bg-warm-sand/30 transition-colors focus:outline-none focus:ring-2 focus:ring-clay/50 shadow-sm"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-display font-semibold text-charcoal">
+                  {item.question}
+                </h3>
+                <svg 
+                  class="w-5 h-5 transform transition-transform text-sage"
+                  :class="active === {index} ? 'rotate-180' : ''"
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </button>
+            
+            <div 
+              x-show="active === {index}"
+              x-transition
+              class="mt-4 p-6 bg-white rounded-lg"
+            >
+              <p class="text-sage leading-relaxed">
+                {item.answer}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-clay text-crema">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="reveal">
+        <h2 class="text-4xl md:text-5xl font-display font-light mb-6">
+          Únete a la Familia Torres del Valle
+        </h2>
+        <p class="text-xl mb-8 text-crema/90">
+          Recibe lo mejor de nuestro Valle directo en tu puerta
+        </p>
+        <button 
+          onclick="document.getElementById('signup-form').scrollIntoView({ behavior: 'smooth' })"
+          class="inline-flex items-center px-8 py-4 bg-crema text-clay font-medium rounded hover:bg-crema/90 transition-colors text-lg"
+        >
+          Comenzar Membresía
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+</Layout>
