@@ -30,74 +30,66 @@ const {
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
   <!-- Background Image/Video -->
-  <div class="absolute inset-0 z-0">
+  <div class="absolute inset-0 z-0 overflow-hidden">
     {showVideo && video ? (
       <video 
         autoplay 
         muted 
         loop 
         playsinline
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover scale-105"
         poster={image}
       >
         <source src={video} type="video/mp4" />
         <img src={image} alt="Vineyard landscape" class="w-full h-full object-cover" />
       </video>
     ) : (
-      <img 
-        src={image} 
-        alt="Vineyard landscape at golden hour" 
-        class="w-full h-full object-cover"
-        loading="lazy"
-      />
+      <div 
+        class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-110"
+        style={`background-image: url('${image}');`}
+      ></div>
     )}
     
-    <!-- Gradient Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-b from-charcoal/30 via-charcoal/10 to-charcoal/30"></div>
+    <!-- Sophisticated Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-charcoal/60 via-charcoal/20 to-charcoal/70"></div>
+    <div class="absolute inset-0 bg-vineyard-green/10 mix-blend-multiply"></div>
   </div>
   
   <!-- Content -->
-  <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-light text-crema mb-6 leading-tight">
-      <span class="block opacity-0 animate-fadeIn" style="animation-delay: 0.2s;">{headline}</span>
+  <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+    <div class="mb-6 opacity-0 animate-slideUp" style="animation-delay: 0.3s;">
+      <span class="inline-block px-4 py-1.5 border border-crema/30 rounded-full text-xs tracking-[0.3em] uppercase text-crema font-body">Est. 1974</span>
+    </div>
+
+    <h1 class="text-6xl md:text-8xl lg:text-9xl font-display font-light text-crema mb-8 leading-[1.1] tracking-tight">
+      <span class="block opacity-0 animate-slideUp" style="animation-delay: 0.5s;">{headline}</span>
     </h1>
     
     {subheadline && (
-      <p class="text-xl md:text-2xl text-crema/90 mb-8 max-w-2xl mx-auto opacity-0 animate-fadeIn" style="animation-delay: 0.4s;">
+      <p class="text-lg md:text-xl lg:text-2xl text-crema/80 mb-12 max-w-2xl mx-auto font-body font-light leading-relaxed tracking-wide opacity-0 animate-slideUp" style="animation-delay: 0.7s;">
         {subheadline}
       </p>
     )}
     
     <!-- CTAs -->
     {(cta1 || cta2) && (
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-fadeIn" style="animation-delay: 0.6s;">
+      <div class="flex flex-col sm:flex-row gap-8 justify-center items-center opacity-0 animate-slideUp" style="animation-delay: 0.9s;">
         {cta1 && (
           <a 
             href={cta1.href}
-            class={`px-8 py-3 font-medium rounded transition-all duration-300 ${
-              cta1.variant === 'secondary' 
-                ? 'bg-muted-gold text-crema hover:bg-muted-gold/90' 
-                : cta1.variant === 'ghost'
-                ? 'border-2 border-crema text-crema hover:bg-crema hover:text-charcoal'
-                : 'bg-clay text-crema hover:bg-clay/90'
-            }`}
+            class="group relative inline-flex items-center justify-center px-10 py-4 bg-clay text-crema font-body text-xs tracking-[0.2em] uppercase transition-all duration-500 hover:bg-clay/90 overflow-hidden"
           >
-            {cta1.text}
+            <span class="relative z-10">{cta1.text}</span>
+            <div class="absolute inset-0 bg-white/10 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0"></div>
           </a>
         )}
         
         {cta2 && (
           <a 
             href={cta2.href}
-            class={`px-8 py-3 font-medium rounded transition-all duration-300 ${
-              cta2.variant === 'secondary' 
-                ? 'bg-muted-gold text-crema hover:bg-muted-gold/90' 
-                : cta2.variant === 'ghost'
-                ? 'border-2 border-crema text-crema hover:bg-crema hover:text-charcoal'
-                : 'bg-clay text-crema hover:bg-clay/90'
-            }`}
+            class="group relative inline-flex items-center justify-center px-10 py-4 border border-crema/40 text-crema font-body text-xs tracking-[0.2em] uppercase transition-all duration-500 hover:border-crema hover:bg-crema/10"
           >
-            {cta2.text}
+            <span class="relative z-10">{cta2.text}</span>
           </a>
         )}
       </div>
@@ -105,9 +97,20 @@ const {
   </div>
   
   <!-- Scroll Indicator -->
-  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-crema/70 animate-bounce">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-    </svg>
+  <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center space-y-4 opacity-0 animate-fadeIn" style="animation-delay: 1.5s;">
+    <span class="text-[0.6rem] tracking-[0.5em] uppercase text-crema/50 font-body">Scroll</span>
+    <div class="w-[1px] h-16 bg-gradient-to-b from-crema/50 to-transparent relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-full bg-crema animate-scrollDown"></div>
+    </div>
   </div>
 </section>
+
+<style>
+  @keyframes scrollDown {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+  .animate-scrollDown {
+    animation: scrollDown 2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  }
+</style>

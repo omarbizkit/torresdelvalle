@@ -11,44 +11,47 @@ export interface Props {
 const { name, vintage, notes, price, image, slug } = Astro.props;
 ---
 
-<div class="group relative bg-crema rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+<div class="group relative bg-white overflow-hidden transition-all duration-700 hover:shadow-2xl">
   <!-- Image Container -->
-  <div class="relative aspect-[4/5] overflow-hidden bg-stone/20">
+  <div class="relative aspect-[3/4] overflow-hidden bg-stone/10 group-hover:bg-stone/20 transition-colors duration-700">
     <img 
       src={image} 
       alt={`${name} ${vintage}`}
-      class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 p-4"
+      class="w-full h-full object-contain p-8 transform transition-transform duration-1000 group-hover:scale-110"
       loading="lazy"
     />
     
-    <!-- Hover Overlay -->
-    <div class="absolute inset-0 bg-charcoal/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-      <span class="text-crema font-medium px-6 py-2 border border-crema rounded hover:bg-crema hover:text-charcoal transition-colors">
+    <!-- Hover Action -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center bg-charcoal/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+      <a 
+        href={`/vinos/${slug}`}
+        class="px-8 py-3 bg-crema text-charcoal text-[0.7rem] tracking-[0.2em] uppercase font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700"
+      >
         Ver detalles
-      </span>
+      </a>
     </div>
   </div>
   
   <!-- Content -->
-  <div class="p-6">
-    <div class="flex items-baseline justify-between mb-2">
-      <h3 class="text-xl font-accent font-semibold text-charcoal">
+  <div class="p-8 bg-crema/30 border-x border-b border-warm-sand/30 flex flex-col h-full">
+    <div class="flex flex-col mb-4">
+      <span class="text-[0.6rem] uppercase tracking-[0.3em] text-sage mb-2">{vintage}</span>
+      <h3 class="text-3xl font-display font-light text-charcoal tracking-tight">
         {name}
       </h3>
-      <span class="text-sm text-sage font-medium">{vintage}</span>
     </div>
     
-    <p class="text-sage text-sm mb-4 leading-relaxed">{notes}</p>
+    <p class="text-sage text-sm mb-8 leading-relaxed font-light italic">{notes}</p>
     
-    <div class="flex items-center justify-between">
-      <span class="text-2xl font-display font-semibold text-clay">{price}</span>
+    <div class="mt-auto pt-8 border-t border-warm-sand/30 flex items-center justify-between">
+      <span class="text-2xl font-display text-clay">{price}</span>
       <a 
         href={`/vinos/${slug}`}
-        class="text-vineyard-green hover:text-clay transition-colors text-sm font-medium"
+        class="group/link flex items-center text-[0.6rem] tracking-[0.3em] uppercase text-charcoal hover:text-clay transition-colors duration-300"
       >
-        Más información
-        <svg class="inline w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        <span>Explorar</span>
+        <svg class="w-4 h-4 ml-2 transform transition-transform duration-300 group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
         </svg>
       </a>
     </div>

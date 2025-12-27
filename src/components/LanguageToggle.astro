@@ -26,31 +26,33 @@ function getAlternativeUrl() {
 const alternativeUrl = getAlternativeUrl();
 ---
 
-<div class="flex items-center space-x-1" role="navigation" aria-label="Language selector">
+<div class="flex items-center space-x-4 font-body text-[0.7rem] tracking-[0.2em] uppercase" role="navigation" aria-label="Language selector">
   <button
-    class={`px-3 py-1 text-sm font-medium rounded transition-colors ${
+    class={`transition-all duration-300 relative group ${
       currentLocale === 'es' 
-        ? 'bg-clay text-crema' 
-        : 'text-charcoal hover:text-clay'
+        ? 'text-current opacity-100' 
+        : 'text-current opacity-40 hover:opacity-100'
     }`}
     onclick={`setLanguage('${currentLocale === 'es' ? '/' : alternativeUrl}')`}
     aria-current={currentLocale === 'es' ? 'true' : 'false'}
   >
     ES
+    <span class={`absolute -bottom-1 left-0 w-full h-[1px] bg-current transition-transform duration-300 ${currentLocale === 'es' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
   </button>
   
-  <span class="text-charcoal/30">|</span>
+  <span class="opacity-20">/</span>
   
   <button
-    class={`px-3 py-1 text-sm font-medium rounded transition-colors ${
+    class={`transition-all duration-300 relative group ${
       currentLocale === 'en' 
-        ? 'bg-clay text-crema' 
-        : 'text-charcoal hover:text-clay'
+        ? 'text-current opacity-100' 
+        : 'text-current opacity-40 hover:opacity-100'
     }`}
     onclick={`setLanguage('${currentLocale === 'en' ? '/' : alternativeUrl}')`}
     aria-current={currentLocale === 'en' ? 'true' : 'false'}
   >
     EN
+    <span class={`absolute -bottom-1 left-0 w-full h-[1px] bg-current transition-transform duration-300 ${currentLocale === 'en' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
   </button>
 </div>
 

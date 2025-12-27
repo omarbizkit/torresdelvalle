@@ -39,6 +39,7 @@ const hours = {
   title="Visítanos" 
   description="Cómo llegar a Torres del Valle en Valle de Guadalupe. Horarios, direcciones y toda la información para planificar tu visita."
   locale="es"
+  headerTheme="dark"
 >
   <!-- Hero Section -->
   <section class="py-20 bg-warm-sand/20">
@@ -161,14 +162,14 @@ const hours = {
         <div class="flex flex-wrap justify-center mb-8 border-b border-crema/20">
           {Object.entries(directions).map(([key, direction]) => (
             <button
-              @click="activeTab = '{key}'"
+              @click={`activeTab = '${key}'`}
               class="px-6 py-3 font-medium transition-colors relative"
-              :class="activeTab === '{key}' ? 'text-crema' : 'text-crema/60 hover:text-crema'"
+              :class={`activeTab === '${key}' ? 'text-crema' : 'text-crema/60 hover:text-crema'`}
             >
               {direction.title}
               <span 
                 class="absolute bottom-0 left-0 right-0 h-0.5 bg-clay transition-all"
-                :class="activeTab === '{key}' ? 'opacity-100' : 'opacity-0'"
+                :class={`activeTab === '${key}' ? 'opacity-100' : 'opacity-0'`}
               ></span>
             </button>
           ))}
@@ -176,8 +177,8 @@ const hours = {
         
         <!-- Tab Content -->
         <div class="bg-crema/10 rounded-lg p-8">
-          <template x-for="[key, direction] in Object.entries(directions)" :key="key">
-            <div x-show="activeTab === key" x-transition>
+          {Object.entries(directions).map(([key, direction]) => (
+            <div x-show={`activeTab === '${key}'`} x-transition>
               <div class="flex items-center mb-4">
                 <svg class="w-6 h-6 mr-3 text-clay" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -188,7 +189,7 @@ const hours = {
                 {direction.route}
               </p>
             </div>
-          </template>
+          ))}
         </div>
       </div>
     </div>

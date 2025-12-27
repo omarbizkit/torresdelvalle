@@ -96,6 +96,7 @@ const galleryImages = [
   title="El Viñedo" 
   description="Descubre el terruño único de Torres del Valle en Valle de Guadalupe. Conoce nuestras prácticas sostenibles y el carácter que da vida a nuestros vinos."
   locale="es"
+  headerTheme="dark"
 >
   <!-- Hero Section -->
   <section class="py-20 bg-warm-sand/20">
@@ -142,46 +143,38 @@ const galleryImages = [
   </section>
   
   <!-- Practices Accordion -->
-  <section class="py-20 bg-stone text-crema">
+  <section class="py-32 bg-crema border-y border-warm-sand/20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 reveal">
-        <h2 class="text-4xl md:text-5xl font-display font-light mb-4">
+      <div class="text-center mb-24 reveal">
+        <span class="inline-block text-clay tracking-[0.3em] uppercase text-xs font-semibold mb-4">Filosofía de Trabajo</span>
+        <h2 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6">
           Nuestras Prácticas
         </h2>
-        <p class="text-xl text-crema/90 max-w-2xl mx-auto">
-          Comprometidos con la sostenibilidad y la calidad
-        </p>
+        <div class="w-24 h-px bg-warm-sand mx-auto"></div>
       </div>
       
-      <div class="space-y-4" x-data="{ active: null }">
+      <div class="space-y-6" x-data="{ active: null }">
         {practices.map((practice, index) => (
-          <div class="reveal" style={`animation-delay: ${index * 0.1}s;`}>
+          <div class="reveal border-b border-warm-sand/30" style={`animation-delay: ${index * 0.1}s;`}>
             <button
               @click="active = active === {index} ? null : {index}"
-              class="w-full text-left p-6 bg-crema/10 rounded-lg hover:bg-crema/20 transition-colors focus:outline-none focus:ring-2 focus:ring-crema/50"
+              class="w-full text-left py-8 flex items-center justify-between group focus:outline-none"
             >
-              <div class="flex items-center justify-between">
-                <h3 class="text-xl font-display font-semibold">
-                  {practice.title}
-                </h3>
-                <svg 
-                  class="w-5 h-5 transform transition-transform"
-                  :class="active === {index} ? 'rotate-180' : ''"
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
+              <h3 class="text-2xl font-display font-light text-charcoal group-hover:text-clay transition-colors duration-300">
+                {practice.title}
+              </h3>
+              <div class="relative w-6 h-6">
+                <span class="absolute top-1/2 left-0 w-full h-px bg-clay transition-transform duration-500" :class="active === {index} ? 'rotate-0' : 'rotate-90'"></span>
+                <span class="absolute top-1/2 left-0 w-full h-px bg-clay"></span>
               </div>
             </button>
             
             <div 
               x-show="active === {index}"
-              x-transition
-              class="mt-4 p-6 bg-crema/5 rounded-lg"
+              x-collapse
+              class="pb-8"
             >
-              <p class="text-crema/80 leading-relaxed">
+              <p class="text-sage leading-relaxed font-light text-lg max-w-2xl">
                 {practice.description}
               </p>
             </div>
@@ -192,27 +185,29 @@ const galleryImages = [
   </section>
   
   <!-- Gallery -->
-  <section class="py-20 bg-crema">
+  <section class="py-32 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 reveal">
-        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+      <div class="text-center mb-24 reveal">
+        <span class="inline-block text-clay tracking-[0.3em] uppercase text-xs font-semibold mb-4">Momentos en el Terruño</span>
+        <h2 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6">
           Galería del Viñedo
         </h2>
-        <p class="text-xl text-sage max-w-2xl mx-auto">
-          Un vistazo a nuestra vida cotidiana en el Valle
-        </p>
+        <div class="w-24 h-px bg-warm-sand mx-auto"></div>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {galleryImages.map((image, index) => (
-          <div class="reveal" style={`animation-delay: ${index * 0.1}s;`}>
+          <div class="reveal group relative overflow-hidden aspect-[4/5] lg:aspect-square shadow-lg" style={`animation-delay: ${index * 0.1}s;`}>
             <img 
               src={image} 
               alt={`Vista del viñedo ${index + 1}`}
-              class="w-full h-64 object-cover rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              class="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110 cursor-pointer"
               loading="lazy"
               onclick="openLightbox(this.src)"
             />
+            <div class="absolute inset-0 bg-charcoal/20 group-hover:bg-charcoal/40 transition-colors duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <span class="text-crema text-[0.6rem] tracking-[0.4em] uppercase border border-crema/30 px-6 py-3 backdrop-blur-sm">Ampliar</span>
+            </div>
           </div>
         ))}
       </div>
@@ -220,20 +215,21 @@ const galleryImages = [
   </section>
   
   <!-- CTA Section -->
-  <section class="py-20 bg-clay text-crema">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <section class="py-32 bg-stone text-crema relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20 bg-[url('/images/hero-vineyard.jpg')] bg-cover bg-fixed"></div>
+    <div class="absolute inset-0 bg-clay/80 mix-blend-multiply"></div>
+    
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
       <div class="reveal">
-        <h2 class="text-4xl md:text-5xl font-display font-light mb-6">
-          Visita Nuestro Viñedo
+        <h2 class="text-5xl md:text-7xl font-display font-light mb-8 leading-tight">
+          Siente el Pulso de la Tierra
         </h2>
-        <p class="text-xl mb-8 text-crema/90">
-          Descubre de primera mano cómo cultivamos nuestras vides y elaboramos nuestros vinos
+        <p class="text-xl md:text-2xl mb-12 text-crema/90 font-light max-w-2xl mx-auto">
+          Descubre de primera mano cómo cultivamos nuestras vides y elaboramos nuestros vinos con respeto absoluto por el terruño.
         </p>
-        <a href="/reservaciones" class="inline-flex items-center px-8 py-4 bg-crema text-clay font-medium rounded hover:bg-crema/90 transition-colors text-lg">
-          Reserva tu experiencia
-          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
+        <a href="/reservaciones" class="group relative inline-flex items-center justify-center px-12 py-5 bg-crema text-clay font-body text-xs tracking-[0.3em] uppercase transition-all duration-500 overflow-hidden">
+          <span class="relative z-10">Planear tu Visita</span>
+          <div class="absolute inset-0 bg-warm-sand transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
         </a>
       </div>
     </div>

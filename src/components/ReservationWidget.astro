@@ -102,7 +102,7 @@ const currentContent = content[currentLocale as keyof typeof content];
 
 <div 
   class="max-w-4xl mx-auto"
-  x-data="{
+  x-data={`{
     step: 1,
     formData: {
       experience: '',
@@ -117,11 +117,14 @@ const currentContent = content[currentLocale as keyof typeof content];
     errors: {},
     submitting: false,
     success: false,
+    experiences: ${JSON.stringify(currentExperiences)},
+    content: ${JSON.stringify(currentContent)},
+    locale: '${currentLocale}',
     
     validateStep1() {
       this.errors = {};
       if (!this.formData.experience) {
-        this.errors.experience = '${currentContent.required}';
+        this.errors.experience = this.content.required;
         return false;
       }
       return true;
@@ -130,11 +133,11 @@ const currentContent = content[currentLocale as keyof typeof content];
     validateStep2() {
       this.errors = {};
       if (!this.formData.date) {
-        this.errors.date = '${currentContent.required}';
+        this.errors.date = this.content.required;
         return false;
       }
       if (!this.formData.time) {
-        this.errors.time = '${currentContent.required}';
+        this.errors.time = this.content.required;
         return false;
       }
       if (this.formData.guests < 1 || this.formData.guests > 12) {
@@ -147,19 +150,19 @@ const currentContent = content[currentLocale as keyof typeof content];
     validateStep3() {
       this.errors = {};
       if (!this.formData.name.trim()) {
-        this.errors.name = '${currentContent.required}';
+        this.errors.name = this.content.required;
         return false;
       }
       if (!this.formData.email.trim()) {
-        this.errors.email = '${currentContent.required}';
+        this.errors.email = this.content.required;
         return false;
       }
       if (!/\S+@\S+\.\S+/.test(this.formData.email)) {
-        this.errors.email = '${currentContent.invalidEmail}';
+        this.errors.email = this.content.invalidEmail;
         return false;
       }
       if (!this.formData.phone.trim()) {
-        this.errors.phone = '${currentContent.required}';
+        this.errors.phone = this.content.required;
         return false;
       }
       return true;
@@ -198,7 +201,7 @@ const currentContent = content[currentLocale as keyof typeof content];
           },
           body: JSON.stringify({
             ...this.formData,
-            locale: '${currentLocale}',
+            locale: this.locale,
             timestamp: new Date().toISOString()
           })
         });
@@ -207,19 +210,19 @@ const currentContent = content[currentLocale as keyof typeof content];
           this.success = true;
           
           // WhatsApp integration
-          const message = `Hola, quiero confirmar mi reserva para ${this.formData.experience} el ${this.formData.date} a las ${this.formData.time} para ${this.formData.guests} personas. Nombre: ${this.formData.name}`;
-          const whatsappUrl = `https://wa.me/526461234567?text=${encodeURIComponent(message)}`;
+          const message = "Hola, quiero confirmar mi reserva para " + this.formData.experience + " el " + this.formData.date + " a las " + this.formData.time + " para " + this.formData.guests + " personas. Nombre: " + this.formData.name;
+          const whatsappUrl = "https://wa.me/526461234567?text=" + encodeURIComponent(message);
           
           // Open WhatsApp after 2 seconds
           setTimeout(() => {
-            window.open(whatsappUrl, '_blank');
+            window.open(whatsappUrl, "_blank");
           }, 2000);
           
         } else {
           throw new Error('Failed to submit');
         }
       } catch (error) {
-        this.errors.submit = '${currentContent.error}';
+        this.errors.submit = this.content.error;
       } finally {
         this.submitting = false;
       }
@@ -235,12 +238,12 @@ const currentContent = content[currentLocale as keyof typeof content];
       const day = new Date(date).getDay();
       return day === 0 || day === 1; // Sunday or Monday
     }
-  }"
+  }`}
 >
   <!-- Progress Bar -->
   <div class="mb-8">
     <div class="flex items-center justify-between mb-2">
-      <span class="text-sm font-medium text-sage">Paso {step} de 4</span>
+      <span class="text-sm font-medium text-sage">{currentLocale === 'es' ? 'Paso' : 'Step'} <span x-text="step"></span> {currentLocale === 'es' ? 'de' : 'of'} 4</span>
     </div>
     <div class="w-full bg-warm-sand rounded-full h-2">
       <div 

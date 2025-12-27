@@ -7,7 +7,7 @@ import WineCard from '../../components/WineCard.astro';
 import { getEntry } from 'astro:content';
 
 // Get content for current locale
-const content = await getEntry('pages', 'index.en');
+const content = await getEntry('pages', 'home');
 const { Content } = await content.render();
 
 // Experience data
@@ -107,38 +107,39 @@ const testimonials = [
   <Hero 
     headline="Valle Roots. Family Soul."
     subheadline="At Torres del Valle, we inherit the land our grandfather cultivated with passion and transform it into wines that speak of Valle de Guadalupe with honesty and elegance."
-    cta1={{ text: 'Book Your Experience', href: '/en/reservations', variant: 'primary' }}
-    cta2={{ text: 'Discover Our Story', href: '/en/our-story', variant: 'ghost' }}
-    video="/video/hero-video.mp4"
-    showVideo={false}
+    cta1={{ text: 'Book Your Experience', href: '/en/reservations' }}
+    cta2={{ text: 'Discover Our Story', href: '/en/our-story' }}
+    image="/images/hero-vineyard.jpg"
   />
   
   <!-- Story Snippet -->
-  <section class="py-20 bg-crema">
+  <section class="py-32 bg-crema overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
         <div class="reveal">
-          <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-6">
+          <span class="inline-block text-clay tracking-[0.3em] uppercase text-xs font-semibold mb-4">Our Heritage</span>
+          <h2 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-8 leading-tight">
             Since 1950, Growing Guadalupe's Character
           </h2>
-          <div class="prose prose-lg text-sage">
+          <div class="prose prose-lg text-sage/90">
             <Content />
           </div>
-          <div class="mt-8">
-            <a href="/en/our-story" class="inline-flex items-center px-6 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors">
+          <div class="mt-12">
+            <a href="/en/our-story" class="group inline-flex items-center text-clay font-body text-xs tracking-[0.2em] uppercase transition-colors">
               Discover Our Story
-              <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              <svg class="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
               </svg>
             </a>
           </div>
         </div>
         
-        <div class="reveal">
+        <div class="reveal relative">
+          <div class="absolute -inset-4 border border-warm-sand translate-x-8 translate-y-8 -z-10"></div>
           <img 
             src="/images/meliton-legacy.jpg" 
             alt="Melitón Zavala, founder of our family's winemaking tradition" 
-            class="w-full h-96 object-cover rounded-lg shadow-lg"
+            class="w-full h-[600px] object-cover shadow-2xl"
             loading="lazy"
           />
         </div>
@@ -147,7 +148,7 @@ const testimonials = [
   </section>
   
   <!-- Experiences Carousel -->
-  <section class="py-20 bg-warm-sand/30">
+  <section class="py-32 bg-stone/5">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12 reveal">
         <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
@@ -169,7 +170,7 @@ const testimonials = [
   </section>
   
   <!-- Featured Wines -->
-  <section class="py-20 bg-crema">
+  <section class="py-32 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12 reveal">
         <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
@@ -200,7 +201,7 @@ const testimonials = [
   </section>
   
   <!-- Testimonials -->
-  <section class="py-20 bg-stone text-crema">
+  <section class="py-32 bg-vineyard-green text-crema overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12 reveal">
         <h2 class="text-4xl md:text-5xl font-display font-light mb-4">

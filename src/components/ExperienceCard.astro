@@ -28,54 +28,64 @@ const {
 const displayTitle = currentLocale === 'es' ? title : (titleEn || title);
 ---
 
-<div class="group relative bg-crema rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-  <!-- Image -->
-  <div class="relative h-48 overflow-hidden">
+<div class="group relative bg-white overflow-hidden transition-all duration-700 hover:shadow-2xl">
+  <!-- Image container with taller aspect ratio -->
+  <div class="relative aspect-[3/4] overflow-hidden">
     <img 
       src={image} 
       alt={displayTitle}
-      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <!-- Subtle overlay -->
+    <div class="absolute inset-0 bg-charcoal/10 group-hover:bg-charcoal/30 transition-colors duration-700"></div>
     
-    <!-- Overlay Content -->
-    <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-      <p class="text-sm font-medium">{vibe}</p>
+    <!-- Experience type/vibe tag -->
+    <div class="absolute top-6 left-6">
+      <span class="inline-block px-3 py-1 bg-crema/90 backdrop-blur-sm text-[0.6rem] tracking-[0.3em] uppercase text-charcoal font-semibold">
+        {vibe}
+      </span>
+    </div>
+
+    <!-- Hover details -->
+    <div class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+      <p class="text-crema/90 text-sm font-light leading-relaxed mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 delay-100">
+        {includes}
+      </p>
     </div>
   </div>
   
-  <!-- Content -->
-  <div class="p-6">
-    <h3 class="text-xl font-display font-semibold text-charcoal mb-3">
-      {displayTitle}
-    </h3>
-    
-    <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
-      <div class="flex items-center text-sage">
-        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        {duration}
-      </div>
+  <!-- Content area -->
+  <div class="p-8 bg-crema/50 border-x border-b border-warm-sand/30 flex flex-col h-full">
+    <div class="mb-6">
+      <h3 class="text-3xl font-display font-light text-charcoal mb-4 tracking-tight">
+        {displayTitle}
+      </h3>
       
-      <div class="flex items-center text-sage">
-        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-        </svg>
-        {groupSize}
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-[0.7rem] uppercase tracking-[0.2em] text-sage font-medium">
+        <span class="flex items-center">
+          <span class="w-1.5 h-1.5 rounded-full bg-clay mr-2"></span>
+          {duration}
+        </span>
+        <span class="flex items-center">
+          <span class="w-1.5 h-1.5 rounded-full bg-clay mr-2"></span>
+          {groupSize}
+        </span>
       </div>
     </div>
     
-    <p class="text-sage text-sm mb-4">{includes}</p>
-    
-    <div class="flex items-center justify-between">
-      <span class="text-2xl font-display font-semibold text-clay">{price}</span>
+    <div class="mt-auto pt-8 border-t border-warm-sand/30 flex items-end justify-between">
+      <div class="flex flex-col">
+        <span class="text-[0.6rem] uppercase tracking-[0.3em] text-sage mb-1">Precio</span>
+        <span class="text-2xl font-display text-clay">{price}</span>
+      </div>
+      
       <a 
         href={`/reservaciones?experience=${slug}`}
-        class="px-4 py-2 bg-vineyard-green text-crema text-sm font-medium rounded hover:bg-vineyard-green/90 transition-colors"
+        class="group/btn relative inline-flex items-center justify-center px-6 py-3 bg-clay text-crema text-[0.7rem] tracking-[0.2em] uppercase transition-all duration-500 overflow-hidden"
       >
-        {currentLocale === 'es' ? 'Reservar' : 'Book'}
+        <span class="relative z-10">{currentLocale === 'es' ? 'Reservar' : 'Book'}</span>
+        <div class="absolute inset-0 bg-charcoal transform -translate-x-full transition-transform duration-500 group-hover/btn:translate-x-0"></div>
       </a>
     </div>
   </div>

@@ -126,6 +126,7 @@ const faqItems = [
   title="Club de Vinos" 
   description="Únete al club de vinos de Torres del Valle y recibe nuestras mejores cosechas directo en tu puerta. Beneficios exclusivos y acceso prioritario."
   locale="es"
+  headerTheme="dark"
 >
   <!-- Hero Section -->
   <section class="py-20 bg-warm-sand/20">
@@ -265,10 +266,8 @@ const faqItems = [
                     class="sr-only"
                   />
                   <div 
-                    class={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
-                      tier.popular ? 'border-clay bg-clay/5' : 'border-warm-sand hover:border-stone'
-                    }`}
-                    :class="selectedTier === '{tier.name}' ? 'border-clay bg-clay/5' : ''"
+                    class="p-4 border-2 rounded-lg cursor-pointer transition-colors"
+                    :class={`selectedTier === '${tier.name}' ? 'border-clay bg-clay/5' : '${tier.popular ? 'border-clay bg-clay/5' : 'border-warm-sand hover:border-stone'}'`}
                   >
                     <div class="text-center">
                       <h3 class="font-semibold text-charcoal">{tier.name}</h3>
@@ -408,7 +407,7 @@ const faqItems = [
         {faqItems.map((item, index) => (
           <div class="reveal" style={`animation-delay: ${index * 0.1}s;`}>
             <button
-              @click="active = active === {index} ? null : {index}"
+              @click={`active = active === ${index} ? null : ${index}`}
               class="w-full text-left p-6 bg-white rounded-lg hover:bg-warm-sand/30 transition-colors focus:outline-none focus:ring-2 focus:ring-clay/50 shadow-sm"
             >
               <div class="flex items-center justify-between">
@@ -417,7 +416,7 @@ const faqItems = [
                 </h3>
                 <svg 
                   class="w-5 h-5 transform transition-transform text-sage"
-                  :class="active === {index} ? 'rotate-180' : ''"
+                  :class={`active === ${index} ? 'rotate-180' : ''`}
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -428,7 +427,7 @@ const faqItems = [
             </button>
             
             <div 
-              x-show="active === {index}"
+              x-show={`active === ${index}`}
               x-transition
               class="mt-4 p-6 bg-white rounded-lg"
             >

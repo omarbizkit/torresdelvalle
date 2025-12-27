@@ -137,6 +137,7 @@ const filterOptions = [
   title="Vinos" 
   description="Descubre nuestra colección de vinos elaborados con pasión y respeto por el terruño de Valle de Guadalupe."
   locale="es"
+  headerTheme="dark"
 >
   <!-- Hero Section -->
   <section class="py-20 bg-warm-sand/20">
@@ -152,60 +153,43 @@ const filterOptions = [
     </div>
   </section>
   
-  <!-- Filter Section -->
-  <section class="sticky top-16 z-30 bg-crema/95 backdrop-blur-sm border-b border-warm-sand py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-wrap justify-center gap-4" x-data="{ filter: 'todos' }">
-        {filterOptions.map((option) => (
-          <button
-            @click="filter = '{option.value}'"
-            :class="filter === '{option.value}' ? 'bg-clay text-crema' : 'bg-warm-sand text-charcoal hover:bg-stone hover:text-crema'"
-            class="px-6 py-2 font-medium rounded-full transition-colors duration-300"
-            data-filter={option.value}
-          >
-            {option.label}
-          </button>
-        ))}
+  <div x-data="{ filter: 'todos' }">
+    <!-- Filter Section -->
+    <section class="sticky top-16 z-30 bg-crema/95 backdrop-blur-sm border-b border-warm-sand py-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap justify-center gap-4">
+          {filterOptions.map((option) => (
+            <button
+              @click={`filter = '${option.value}'`}
+              :class={`filter === '${option.value}' ? 'bg-clay text-crema' : 'bg-warm-sand text-charcoal hover:bg-stone hover:text-crema'`}
+              class="px-6 py-2 font-medium rounded-full transition-colors duration-300"
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-  
-  <!-- Wine Grid -->
-  <section class="py-20 bg-crema">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div 
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-        x-data="{ wines: [] }"
-        x-init="wines = [
-          { name: 'Grenache 2023', type: 'tinto', vintage: 2023, notes: 'Frutos rojos maduros, especias mediterráneas, mineralidad elegante', price: '$850 MXN', image: '/images/wine-bottles/grenache-2023.jpg', slug: 'grenache-2023' },
-          { name: 'Nebbiolo 2022', type: 'tinto', vintage: 2022, notes: 'Cereza negra, rosa silvestre, taninos firmes y elegantes', price: '$1,200 MXN', image: '/images/wine-bottles/nebbiolo-2022.jpg', slug: 'nebbiolo-2022' },
-          { name: 'Syrah 2022', type: 'tinto', vintage: 2022, notes: 'Mora, pimienta negra, notas ahumadas', price: '$950 MXN', image: '/images/wine-bottles/grenache-2023.jpg', slug: 'syrah-2022' },
-          { name: 'Chenin Blanc 2023', type: 'blanco', vintage: 2023, notes: 'Cítricos, miel de azahar, acidez vibrante y fresca', price: '$650 MXN', image: '/images/wine-bottles/chenin-blanc-2023.jpg', slug: 'chenin-blanc-2023' },
-          { name: 'Sauvignon Blanc 2023', type: 'blanco', vintage: 2023, notes: 'Hierbas frescas, pomelo, mineralidad salina', price: '$580 MXN', image: '/images/wine-bottles/chenin-blanc-2023.jpg', slug: 'sauvignon-blanc-2023' },
-          { name: 'Chardonnay 2022', type: 'blanco', vintage: 2022, notes: 'Manzana verde, vainilla, cuerpo medio', price: '$720 MXN', image: '/images/wine-bottles/chenin-blanc-2023.jpg', slug: 'chardonnay-2022' },
-          { name: 'Rosé 2023', type: 'rosado', vintage: 2023, notes: 'Fresas silvestres, rosas, final seco y mineral', price: '$520 MXN', image: '/images/wine-bottles/rose-2023.jpg', slug: 'rose-2023' },
-          { name: 'Grenache Rosé 2023', type: 'rosado', vintage: 2023, notes: 'Pomelo rosado, frambuesa, acidez refrescante', price: '$480 MXN', image: '/images/wine-bottles/rose-2023.jpg', slug: 'grenache-rose-2023' },
-          { name: 'Tempranillo 2021', type: 'tinto', vintage: 2021, notes: 'Cereza, vainilla, especias dulces', price: '$780 MXN', image: '/images/wine-bottles/nebbiolo-2022.jpg', slug: 'tempranillo-2021' },
-          { name: 'Viognier 2023', type: 'blanco', vintage: 2023, notes: 'Durazno, flores blancas, cuerpo medio', price: '$620 MXN', image: '/images/wine-bottles/chenin-blanc-2023.jpg', slug: 'viognier-2023' },
-          { name: 'Petite Sirah 2021', type: 'tinto', vintage: 2021, notes: 'Mora, cacao, taninos robustos', price: '$1,100 MXN', image: '/images/wine-bottles/nebbiolo-2022.jpg', slug: 'petite-sirah-2021' },
-          { name: 'Blend de Corte 2022', type: 'tinto', vintage: 2022, notes: 'Complejo, frutas negras, especias, elegante', price: '$1,350 MXN', image: '/images/wine-bottles/grenache-2023.jpg', slug: 'blend-corte-2022' }
-        ]"
-      >
-        <template x-for="wine in wines.filter(w => filter === 'todos' || w.type === filter)" :key="wine.slug">
-          <div class="reveal">
-            <WineCard 
-              name="${wine.name}"
-              vintage="${wine.vintage}"
-              notes="${wine.notes}"
-              price="${wine.price}"
-              image="${wine.image}"
-              slug="${wine.slug}"
-            />
-          </div>
-        </template>
+    </section>
+    
+    <!-- Wine Grid -->
+    <section class="py-20 bg-crema">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {wines.map((wine) => (
+            <div 
+              class="reveal" 
+              x-show={`filter === 'todos' || filter === '${wine.type}'`}
+              x-transition:enter="transition ease-out duration-300"
+              x-transition:enter-start="opacity-0 transform scale-95"
+              x-transition:enter-end="opacity-100 transform scale-100"
+            >
+              <WineCard {...wine} />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
   
   <!-- Wine Making Process -->
   <section class="py-20 bg-stone text-crema">

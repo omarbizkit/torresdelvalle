@@ -17,7 +17,7 @@
     "animejs": "^3.2.1",
     "astro": "^4.0.0",
     "echarts": "^5.4.3",
-    "splide": "^4.1.4",
+    "@splidejs/splide": "^4.1.4",
     "typed.js": "^2.0.12",
     "zod": "^3.22.4"
   },

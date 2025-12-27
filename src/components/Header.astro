@@ -1,9 +1,12 @@
 ---
+import LanguageToggle from './LanguageToggle.astro';
+
 export interface Props {
   currentLocale?: 'es' | 'en';
+  headerTheme?: 'light' | 'dark';
 }
 
-const { currentLocale = 'es' } = Astro.props;
+const { currentLocale = 'es', headerTheme = 'light' } = Astro.props;
 
 const navigation = {
   es: [
@@ -31,37 +34,71 @@ const navigation = {
 const currentNav = navigation[currentLocale as keyof typeof navigation];
 ---
 
-<header class="sticky top-0 z-40 bg-crema/95 backdrop-blur-sm border-b border-warm-sand">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <!-- Logo -->
-      <div class="flex-shrink-0">
-        <a href={currentLocale === 'es' ? '/' : '/en'} class="text-2xl font-display font-semibold text-clay hover:text-vineyard-green transition-colors">
-          Torres del Valle
-        </a>
-      </div>
+<header 
+  x-data={`{ scrolled: false, theme: '${headerTheme}' }`}
+  @scroll.window="scrolled = (window.pageYOffset > 20)"
+  :class="scrolled ? 'bg-crema/95 backdrop-blur-md shadow-sm py-4' : (theme === 'dark' ? 'bg-crema/50 backdrop-blur-sm py-5' : 'bg-transparent py-8')"
+  class="fixed top-0 w-full z-50 transition-all duration-500 ease-in-out"
+>
+  <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12">
+    <div class="flex justify-between items-center transition-all duration-500">
+      
+      <!-- Logo & Branding -->
+      <a 
+        href={currentLocale === 'es' ? '/' : '/en'} 
+        class="flex items-center group flex-shrink-0"
+        aria-label="Torres del Valle Home"
+      >
+        <div class="relative h-10 w-10 md:h-12 md:w-12 flex items-center justify-center overflow-hidden">
+          <img 
+            src="/images/brand/logo.png" 
+            alt="Torres del Valle Logo" 
+            class="w-full h-full object-cover scale-[1.3] transition-transform duration-500 group-hover:scale-[1.4]"
+            :class="scrolled || theme === 'dark' ? '' : 'brightness-0 invert'"
+          />
+        </div>
+        <div 
+          class="ml-3 flex flex-col transition-colors duration-500"
+          :class="scrolled || theme === 'dark' ? 'text-clay' : 'text-crema'"
+        >
+          <span class="text-lg md:text-xl font-display font-medium leading-none tracking-tight">Torres del Valle</span>
+          <span class="text-[0.45rem] tracking-[0.4em] uppercase mt-1 opacity-80">Vineyards</span>
+        </div>
+      </a>
       
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center space-x-8" role="navigation" aria-label="Primary navigation">
         {currentNav.map((item) => (
           <a 
             href={item.href} 
-            class="text-charcoal hover:text-clay transition-colors font-medium relative group"
+            class="text-[0.65rem] tracking-[0.25em] uppercase transition-colors duration-500 font-body relative group"
+            :class="scrolled || theme === 'dark' ? 'text-charcoal hover:text-clay' : 'text-crema/90 hover:text-crema'"
             aria-current={Astro.url.pathname === item.href ? 'page' : undefined}
           >
             {item.label}
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-clay transition-all duration-300 group-hover:w-full"></span>
+            <span 
+              class="absolute -bottom-1 left-1/2 w-0 h-px bg-clay transition-all duration-300 group-hover:w-full group-hover:left-0"
+              :class="scrolled || theme === 'dark' ? 'bg-clay' : 'bg-crema'"
+            ></span>
           </a>
         ))}
       </nav>
       
-      <!-- Language Toggle & CTA -->
-      <div class="flex items-center space-x-4">
-        <LanguageToggle currentLocale={currentLocale} />
+      <!-- Extras (Lang, Reservar, Mobile) -->
+      <div class="flex items-center space-x-4 lg:space-x-8">
+        <div 
+          class="transition-colors duration-500"
+          :class="scrolled || theme === 'dark' ? 'text-charcoal' : 'text-crema'"
+        >
+          <LanguageToggle currentLocale={currentLocale} />
+        </div>
         
         <a 
           href={currentLocale === 'es' ? '/reservaciones' : '/en/reservations'}
-          class="hidden sm:inline-flex items-center px-6 py-2 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors"
+          class="hidden sm:inline-flex items-center px-6 py-2.5 text-[0.6rem] font-body font-medium uppercase tracking-[0.25em] transition-all duration-500"
+          :class="scrolled || theme === 'dark' 
+            ? 'bg-clay text-crema hover:bg-clay/90' 
+            : 'bg-crema text-clay hover:bg-crema/90'"
         >
           {currentLocale === 'es' ? 'Reservar' : 'Book'}
         </a>
@@ -69,7 +106,8 @@ const currentNav = navigation[currentLocale as keyof typeof navigation];
         <!-- Mobile Menu Button -->
         <button 
           id="mobile-menu-button"
-          class="lg:hidden p-2 text-charcoal hover:text-clay transition-colors"
+          class="lg:hidden p-2 transition-colors duration-500"
+          :class="scrolled || theme === 'dark' ? 'text-charcoal hover:text-clay' : 'text-crema hover:text-crema/80'"
           aria-expanded="false"
           aria-label={currentLocale === 'es' ? 'Menú móvil' : 'Mobile menu'}
         >
@@ -82,25 +120,39 @@ const currentNav = navigation[currentLocale as keyof typeof navigation];
   </div>
   
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="lg:hidden hidden bg-crema border-t border-warm-sand">
-    <div class="px-4 py-2 space-y-1">
-      {currentNav.map((item) => (
-        <a 
-          href={item.href} 
-          class="block px-3 py-2 text-charcoal hover:text-clay hover:bg-warm-sand/50 rounded transition-colors"
-          aria-current={Astro.url.pathname === item.href ? 'page' : undefined}
-        >
-          {item.label}
-        </a>
-      ))}
-      <div class="pt-4 pb-2">
-        <a 
-          href={currentLocale === 'es' ? '/reservaciones' : '/en/reservations'}
-          class="block w-full text-center px-6 py-2 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors"
-        >
-          {currentLocale === 'es' ? 'Reservar' : 'Book'}
-        </a>
+  <div 
+    id="mobile-menu" 
+    class="lg:hidden hidden fixed inset-0 bg-crema z-50 flex flex-col items-center justify-center space-y-8"
+  >
+    <button 
+      id="close-menu"
+      class="absolute top-8 right-8 text-charcoal hover:text-clay transition-colors"
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    {currentNav.map((item) => (
+      <a 
+        href={item.href} 
+        class="text-2xl font-display text-charcoal hover:text-clay transition-colors"
+        aria-current={Astro.url.pathname === item.href ? 'page' : undefined}
+      >
+        {item.label}
+      </a>
+    ))}
+    
+    <div class="pt-8 text-center">
+      <div class="mb-8">
+        <LanguageToggle currentLocale={currentLocale} />
       </div>
+      <a 
+        href={currentLocale === 'es' ? '/reservaciones' : '/en/reservations'}
+        class="px-12 py-4 bg-clay text-crema font-display text-xl rounded hover:bg-clay/90 transition-colors"
+      >
+        {currentLocale === 'es' ? 'Reservar Ahora' : 'Book Now'}
+      </a>
     </div>
   </div>
 </header>
@@ -108,13 +160,29 @@ const currentNav = navigation[currentLocale as keyof typeof navigation];
 <script>
   // Mobile menu toggle
   const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const closeMenuButton = document.getElementById('close-menu');
   const mobileMenu = document.getElementById('mobile-menu');
+  const menuLinks = mobileMenu?.querySelectorAll('a');
   
   if (mobileMenuButton && mobileMenu) {
     mobileMenuButton.addEventListener('click', () => {
-      const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-      mobileMenuButton.setAttribute('aria-expanded', (!isExpanded).toString());
-      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.remove('hidden');
+      document.body.style.overflow = 'hidden'; 
     });
   }
+
+  if (closeMenuButton && mobileMenu) {
+    closeMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      document.body.style.overflow = ''; 
+    });
+  }
+  
+  // Close menu on link click
+  menuLinks?.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+  });
 </script>

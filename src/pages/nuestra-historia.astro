@@ -16,7 +16,7 @@ const timeline = [
     titleEn: 'The Torres Siblings Reclaim the Land',
     description: 'Gabriel, Lilibeth y Omar Torres deciden honrar el legado de su abuelo, recuperando las tierras familiares y comenzando su sueño vitivinícola.',
     descriptionEn: 'Gabriel, Lilibeth, and Omar Torres decide to honor their grandfather\'s legacy, reclaiming the family lands and beginning their winemaking dream.',
-    image: '/images/family-portrait.jpg'
+    image: '/images/family/owners.jpg'
   },
   {
     year: '2020',
@@ -41,24 +41,24 @@ const siblings = [
     name: 'Gabriel Torres',
     role: 'Viticultor',
     roleEn: 'Viticulturist',
-    bio: 'Gabriel es el guardian de nuestras vides. Con profundo conocimiento del terruño vallegrandino, cultiva cada cepa con la misma dedicación que su abuelo Melitón.',
-    bioEn: 'Gabriel is the guardian of our vines. With deep knowledge of the Valle de Guadalupe terroir, he cultivates each vine with the same dedication as his grandfather Melitón.',
+    bio: 'Guardian de nuestras vides. Gabriel cultiva cada cepa con la sabiduría heredada y una dedicación absoluta al terruño que su abuelo Melitón comenzó a trabajar.',
+    bioEn: 'Guardian of our vines. Gabriel cultivates each vine with inherited wisdom and an absolute dedication to the terroir that his grandfather Melitón first began to work.',
     image: '/images/family/gabriel-torres.jpg'
   },
   {
     name: 'Lilibeth Torres',
     role: 'Enóloga',
     roleEn: 'Winemaker',
-    bio: 'Lilibeth transforma nuestras uvas en vinos de excepción. Su formación enología y su intuición crean vinos que expresan la verdadera esencia de nuestro Valle.',
-    bioEn: 'Lilibeth transforms our grapes into exceptional wines. Her enological training and intuition create wines that express the true essence of our Valley.',
+    bio: 'El alma creativa detrás de cada botella. Lilibeth transforma la nobleza de nuestras uvas en vinos de gran expresión, equilibrando técnica y arte.',
+    bioEn: 'The creative soul behind every bottle. Lilibeth transforms the nobility of our grapes into highly expressive wines, balancing technique and art.',
     image: '/images/family/lilibeth-torres.jpg'
   },
   {
     name: 'Omar Torres',
-    role: 'Hospitality',
-    roleEn: 'Hospitality',
-    bio: 'Omar crea experiencias memorables para cada visitante. Su calidez y conocimiento hacen que cada momento en Torres del Valle sea especial y único.',
-    bioEn: 'Omar creates memorable experiences for every visitor. His warmth and knowledge make every moment at Torres del Valle special and unique.',
+    role: 'Hospitalidad y Visión',
+    roleEn: 'Hospitality & Vision',
+    bio: 'Arquitecto de experiencias memorables. Omar asegura que cada visitante sienta la calidez de la familia Torres, narrando nuestra historia en cada rincón del Valle.',
+    bioEn: 'Architect of memorable experiences. Omar ensures every visitor feels the Torres family warmth, narrating our story in every corner of the Valley.',
     image: '/images/family/omar-torres.jpg'
   }
 ];
@@ -101,105 +101,131 @@ const values = [
   title="Nuestra Historia" 
   description="Descubre el legado de la familia Torres y cómo honramos la tradición vitivinícola de nuestro abuelo Melitón Zavala en Valle de Guadalupe."
   locale="es"
+  headerTheme="dark"
 >
   <!-- Hero Section -->
-  <section class="min-h-screen flex items-center bg-warm-sand/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen">
-        <div class="reveal">
-          <h1 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6 leading-tight">
-            Raíces que nos definen
+  <section class="relative pt-48 pb-32 bg-crema overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-stone/5 -skew-x-12 translate-x-1/4"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div class="lg:col-span-7 reveal">
+          <span class="inline-block px-4 py-1.5 border border-clay/30 rounded-full text-[0.6rem] tracking-[0.3em] uppercase text-clay font-body mb-8">El Legado Torres</span>
+          <h1 class="text-6xl md:text-8xl font-display font-light text-charcoal mb-8 leading-[1.1] tracking-tight">
+            Raíces que nos <span class="italic text-clay">definen</span>
           </h1>
-          <p class="text-xl text-sage mb-8 leading-relaxed">
+          <p class="text-xl md:text-2xl text-sage/80 mb-12 leading-relaxed font-light max-w-2xl">
             La historia de Torres del Valle es una historia de familia, de respeto por la tierra y de pasión por crear vinos que hablen con honestidad de nuestro terruño.
           </p>
-          <a href="/reservaciones" class="inline-flex items-center px-6 py-3 bg-clay text-crema font-medium rounded hover:bg-clay/90 transition-colors">
-            Reserva tu visita
-            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </a>
+          <div class="flex flex-col sm:flex-row gap-6">
+            <a href="/reservaciones" class="group relative inline-flex items-center justify-center px-10 py-4 bg-clay text-crema font-body text-xs tracking-[0.2em] uppercase transition-all duration-500 hover:bg-clay/90 overflow-hidden">
+              <span class="relative z-10">Reserva tu visita</span>
+              <div class="absolute inset-0 bg-white/10 transform -translate-x-full transition-transform duration-500 group-hover:translate-x-0"></div>
+            </a>
+          </div>
         </div>
         
-        <div class="reveal">
-          <img 
-            src="/images/family-portrait.jpg" 
-            alt="Los hermanos Torres: Gabriel, Lilibeth y Omar" 
-            class="w-full h-96 object-cover rounded-lg shadow-xl"
-            loading="lazy"
-          />
+        <div class="lg:col-span-5 reveal relative">
+          <div class="absolute -inset-4 border border-warm-sand translate-x-6 translate-y-6 -z-10"></div>
+          <div class="aspect-[4/5] overflow-hidden shadow-2xl">
+            <img 
+              src="/images/family-portrait.jpg" 
+              alt="Los hermanos Torres: Gabriel, Lilibeth y Omar" 
+              class="w-full h-full object-cover transform transition-transform duration-1000 hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+          <!-- Corner accent -->
+          <div class="absolute bottom-0 left-0 w-24 h-24 bg-clay/10 -translate-x-12 translate-y-12 rounded-full blur-3xl"></div>
         </div>
       </div>
     </div>
   </section>
   
   <!-- Timeline -->
-  <section class="py-20 bg-crema">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 reveal">
-        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
-          Nuestra Historia
+  <section class="py-32 bg-crema relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-24 reveal">
+        <span class="inline-block text-clay tracking-[0.3em] uppercase text-xs font-semibold mb-4">El Paso del Tiempo</span>
+        <h2 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6">
+          Nuestra Travesía
         </h2>
-        <p class="text-xl text-sage">
-          Un viaje a través del tiempo que nos trajo hasta aquí
-        </p>
+        <div class="w-24 h-px bg-warm-sand mx-auto"></div>
       </div>
       
-      <div class="space-y-16">
-        {timeline.map((item, index) => (
-          <div class="flex items-center gap-8 reveal" style={`animation-delay: ${index * 0.2}s;`}>
-            <div class="flex-shrink-0 w-24 h-24 bg-clay text-crema rounded-full flex items-center justify-center font-display text-2xl font-semibold">
-              {item.year}
+      <div class="relative">
+        <!-- Vertical Line -->
+        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-warm-sand/50 -translate-x-1/2 hidden lg:block"></div>
+        
+        <div class="space-y-32">
+          {timeline.map((item, index) => (
+            <div class={`flex flex-col lg:flex-row items-center gap-12 lg:gap-24 reveal ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+              <!-- Image/Visual Side -->
+              <div class="lg:w-1/2 relative">
+                <div class={`absolute top-0 ${index % 2 === 0 ? '-right-4' : '-left-4'} w-full h-full border border-warm-sand -z-10 translate-y-4`}></div>
+                <div class="aspect-video overflow-hidden shadow-xl">
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    class="w-full h-full object-cover transform transition-transform duration-1000 hover:scale-110"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              
+              <!-- Content Side -->
+              <div class={`lg:w-1/2 text-center ${index % 2 === 0 ? 'lg:text-left' : 'lg:text-right'}`}>
+                <div class={`inline-flex items-center justify-center w-16 h-16 rounded-full border border-clay text-clay font-display text-xl mb-6 bg-crema relative z-10`}>
+                  {item.year.substring(2)}
+                  <div class="absolute inset-0 rounded-full bg-clay/5 animate-pulse"></div>
+                </div>
+                <h3 class="text-4xl font-display font-light text-charcoal mb-6 tracking-tight">
+                  {item.title}
+                </h3>
+                <p class="text-sage leading-relaxed font-light text-lg max-w-lg mx-auto lg:mx-0">
+                  {item.description}
+                </p>
+              </div>
             </div>
-            
-            <div class="flex-1">
-              <h3 class="text-2xl font-display font-semibold text-charcoal mb-3">
-                {item.title}
-              </h3>
-              <p class="text-sage leading-relaxed mb-4">
-                {item.description}
-              </p>
-              <img 
-                src={item.image} 
-                alt={item.title}
-                class="w-full h-48 object-cover rounded-lg"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   </section>
   
   <!-- Family Grid -->
-  <section class="py-20 bg-warm-sand/30">
+  <section class="py-32 bg-stone/5">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 reveal">
-        <h2 class="text-4xl md:text-5xl font-display font-light text-charcoal mb-4">
+      <div class="text-center mb-24 reveal">
+        <span class="inline-block text-clay tracking-[0.3em] uppercase text-xs font-semibold mb-4">Los Protagonistas</span>
+        <h2 class="text-5xl md:text-6xl font-display font-light text-charcoal mb-6">
           La Familia Torres
         </h2>
-        <p class="text-xl text-sage max-w-2xl mx-auto">
-          Tres hermanos, tres pasiones, un solo sueño: crear vinos que honren nuestra tierra y tradición familiar.
-        </p>
+        <div class="w-24 h-px bg-warm-sand mx-auto"></div>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
         {siblings.map((sibling, index) => (
-          <div class="text-center reveal" style={`animation-delay: ${index * 0.2}s;`}>
-            <img 
-              src={sibling.image} 
-              alt={sibling.name}
-              class="w-48 h-48 object-cover rounded-full mx-auto mb-6 shadow-lg"
-              loading="lazy"
-            />
-            <h3 class="text-2xl font-display font-semibold text-charcoal mb-2">
-              {sibling.name}
-            </h3>
-            <p class="text-clay font-medium mb-4">{sibling.role}</p>
-            <p class="text-sage leading-relaxed">
-              {sibling.bio}
-            </p>
+          <div class="group reveal" style={`animation-delay: ${index * 0.2}s;`}>
+            <div class="relative mb-10 overflow-hidden shadow-xl aspect-square">
+              <img 
+                src={sibling.image} 
+                alt={sibling.name}
+                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 border-[12px] border-crema/20 pointer-events-none"></div>
+            </div>
+            <div class="text-center">
+              <span class="inline-block text-clay text-[0.6rem] tracking-[0.3em] uppercase font-bold mb-3">{sibling.role}</span>
+              <h3 class="text-3xl font-display font-light text-charcoal mb-4">
+                {sibling.name}
+              </h3>
+              <p class="text-sage leading-relaxed font-light text-sm italic">
+                "{sibling.bio}"
+              </p>
+            </div>
           </div>
         ))}
       </div>
@@ -207,29 +233,29 @@ const values = [
   </section>
   
   <!-- Values Grid -->
-  <section class="py-20 bg-stone text-crema">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 reveal">
-        <h2 class="text-4xl md:text-5xl font-display font-light mb-4">
+  <section class="py-32 bg-vineyard-green text-crema overflow-hidden relative">
+    <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-crema rounded-full"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] border border-crema rounded-full"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-24 reveal">
+        <span class="inline-block text-crema/60 tracking-[0.3em] uppercase text-[0.6rem] font-bold mb-4">Nuestra Filosofía</span>
+        <h2 class="text-5xl md:text-6xl font-display font-light mb-8">
           Nuestros Valores
         </h2>
-        <p class="text-xl text-crema/90 max-w-2xl mx-auto">
-          Los principios que guían cada decisión y cada vino que creamos
-        </p>
+        <div class="w-24 h-px bg-crema/20 mx-auto"></div>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-16 border-t border-crema/10 pt-20">
         {values.map((value, index) => (
-          <div class="text-center reveal" style={`animation-delay: ${index * 0.1}s;`}>
-            <div class="w-16 h-16 bg-crema/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-crema" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-display font-semibold mb-3">
+          <div class="reveal" style={`animation-delay: ${index * 0.1}s;`}>
+            <span class="text-4xl font-display italic text-crema/20 mb-6 block">0{index + 1}</span>
+            <h3 class="text-2xl font-display font-light mb-6 tracking-wide">
               {value.title}
             </h3>
-            <p class="text-crema/80 leading-relaxed">
+            <p class="text-crema/70 leading-relaxed font-light text-sm tracking-wide">
               {value.description}
             </p>
           </div>
@@ -239,20 +265,21 @@ const values = [
   </section>
   
   <!-- CTA Section -->
-  <section class="py-20 bg-clay text-crema">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="reveal">
-        <h2 class="text-4xl md:text-5xl font-display font-light mb-6">
+  <section class="py-32 bg-crema">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center bg-clay py-20 relative overflow-hidden shadow-2xl">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 bg-black/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+      
+      <div class="reveal relative z-10">
+        <h2 class="text-5xl md:text-7xl font-display font-light text-crema mb-8 leading-tight">
           Visita Torres del Valle
         </h2>
-        <p class="text-xl mb-8 text-crema/90">
-          Descubre la historia detrás de cada vino. Reserva tu experiencia hoy.
+        <p class="text-xl md:text-2xl mb-12 text-crema/80 font-light max-w-2xl mx-auto">
+          Descubre la historia detrás de cada vino y vive el legado de nuestra familia.
         </p>
-        <a href="/reservaciones" class="inline-flex items-center px-8 py-4 bg-crema text-clay font-medium rounded hover:bg-crema/90 transition-colors text-lg">
-          Reserva tu experiencia
-          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
+        <a href="/reservaciones" class="group relative inline-flex items-center justify-center px-12 py-5 bg-crema text-clay font-body text-xs tracking-[0.3em] uppercase transition-all duration-500 overflow-hidden">
+          <span class="relative z-10">Planear Visita</span>
+          <div class="absolute inset-0 bg-warm-sand transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
         </a>
       </div>
     </div>
